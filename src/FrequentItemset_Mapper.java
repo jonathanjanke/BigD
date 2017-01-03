@@ -12,14 +12,15 @@ import org.apache.hadoop.mapreduce.v2.hs.webapp.HsAboutPage;
 
 import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
-public class Apriori_Mapper extends Mapper<Object, Text, Text, IntWritable> {
+public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, Text> {
 		
-        private final static IntWritable one = new IntWritable(1);
+        private final static Text one = new Text("1");
         private Text word = new Text();
 
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
       	   	String file = value.toString();
       	   	int numberCombinations = Apriori_Main.currentNumberCombinations;
+      	   	
       	   	String [] baskets  = file.split("\n");
    		 	HashSet<String> hs = new HashSet<String> ();
    		 	
@@ -44,7 +45,7 @@ public class Apriori_Mapper extends Mapper<Object, Text, Text, IntWritable> {
 					  for (String [] element : basketCombinations) {
 						  String curr = "";
 						  for (int i=0; i<element.length-1; i++) {
-							  curr += element [i] + ", ";
+							  curr += element [i] + ",";
 						  }
 						  curr += element [element.length-1];
 						  word.set(curr);
