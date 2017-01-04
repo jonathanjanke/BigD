@@ -83,9 +83,11 @@ public class Apriori_Main extends Configured implements Tool {
 		  job.setInputFormatClass(TextInputFormat.class);
 		  job.setOutputFormatClass(TextOutputFormat.class);
 
-		  Path tempPath = new Path("data/" + 0 + "/temp");
+		  Path inputPath = new Path("data/" + 0 + "/1_input");
+		  Path tempPath = new Path("data/" + 1 + "/1_frequent_itemsets");
+		  Path outputPath = new Path("data/" + 1 + "/2_association_rules");
 		  
-		  TextInputFormat.addInputPath(job, new Path("data/" + 0 + "/input"));
+		  TextInputFormat.addInputPath(job, inputPath);
 		  TextOutputFormat.setOutputPath(job, tempPath);
 
 		  tempPath.getFileSystem(new Configuration()).delete(tempPath, true);
@@ -108,7 +110,7 @@ public class Apriori_Main extends Configured implements Tool {
 		  job2.setInputFormatClass(TextInputFormat.class);
 		  job2.setOutputFormatClass(TextOutputFormat.class);
 
-		  Path outputPath = new Path("data/" + 0 + "/output");
+
 		  
 		  TextInputFormat.addInputPath(job2, tempPath);
 		  TextOutputFormat.setOutputPath(job2, outputPath);
