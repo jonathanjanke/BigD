@@ -16,7 +16,6 @@ public class AssociationConstruction_Mapper extends Mapper<Object, Text, Text, T
         private Text outputValue = new Text();
 
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-        	System.out.println("Mapper löft");
         	String file = value.toString();
         	String [] itemsets = file.split("\n");
     
@@ -53,7 +52,7 @@ public class AssociationConstruction_Mapper extends Mapper<Object, Text, Text, T
             	String combinationString = arrayToString (items);
         		outputKey.set(combinationString);
         		
-        		String returnValue = "" + ":" + support;
+        		String returnValue = Apriori_Main.EMPTY_SYMBOL + ":" + support;
         		outputValue.set(returnValue);
         		
         		context.write(outputKey, outputValue);

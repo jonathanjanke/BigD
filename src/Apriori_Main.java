@@ -40,12 +40,13 @@ public class Apriori_Main extends Configured implements Tool {
 	 */
 	
 	
-	public static final int NUMBER_COMBINATIONS = 10;
-	public static final int SUPPORT_THRESHOLD = 3; //support threshold in absolute numbers
+	public static final int NUMBER_COMBINATIONS = 4;
+	public static final int SUPPORT_THRESHOLD = 10; //support threshold in absolute numbers
 	public static final double CONFIDENCE = 0.5; //confidence in relative numbers
 	public static final double INTEREST = 0.8;
+	public static final Object EMPTY_SYMBOL = "{X}";
 	
-	public static int currentNumberCombinations = 2;
+	public static int currentNumberCombinations = 3;
 
 	public static void main(String[] args) throws Exception {
 		if (args.length != 2) {

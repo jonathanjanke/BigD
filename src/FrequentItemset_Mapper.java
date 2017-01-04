@@ -18,9 +18,9 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, Text> {
         private Text word = new Text();
 
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-        	System.out.println("Mapper 1 löft");
       	   	String file = value.toString();
-      	   	int numberCombinations = Apriori_Main.currentNumberCombinations;
+      	   	int numberCombinations = 1;
+      	   	int totalNumberCombinations = Apriori_Main.NUMBER_COMBINATIONS;
       	   	
       	   	String [] baskets  = file.split("\n");
    		 	HashSet<String> hs = new HashSet<String> ();
@@ -36,24 +36,26 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, Text> {
 			  String [][] combinationsInBasket = this.combine(hs.toArray(new String[0]), numberCombinations);
 			  */
    		 	
-			  for (String basket : baskets) {
-				  
-				  String [] elementsInBasket = basket.split(",");
-				  if (elementsInBasket.length >=numberCombinations) {
-					  Arrays.sort(elementsInBasket);
-					  String [][] basketCombinations = combine (elementsInBasket, numberCombinations);
+   		 	  for (; numberCombinations<=totalNumberCombinations; numberCombinations++) {
+				  for (String basket : baskets) {
 					  
-					  for (String [] element : basketCombinations) {
-						  String curr = "";
-						  for (int i=0; i<element.length-1; i++) {
-							  curr += element [i] + ",";
+					  String [] elementsInBasket = basket.split(",");
+					  if (elementsInBasket.length >=numberCombinations) {
+						  Arrays.sort(elementsInBasket);
+						  String [][] basketCombinations = combine (elementsInBasket, numberCombinations);
+						  
+						  for (String [] element : basketCombinations) {
+							  String curr = "";
+							  for (int i=0; i<element.length-1; i++) {
+								  curr += element [i] + ",";
+							  }
+							  curr += element [element.length-1];
+							  word.set(curr);
+						      context.write(word, one);			      
 						  }
-						  curr += element [element.length-1];
-						  word.set(curr);
-					      context.write(word, one);			      
 					  }
 				  }
-			  }                   
+   		 	  }
         }
     	
     	private static String [][] combine (String [] elements, int combinationSize) {
