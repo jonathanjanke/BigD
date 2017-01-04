@@ -10,14 +10,13 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.v2.hs.webapp.HsAboutPage;
 
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
-public class AssociationConstruction_Mapper extends Mapper<Text, Text, Text, Text> {
+public class AssociationConstruction_Mapper extends Mapper<Object, Text, Text, Text> {
 		
-        private final static Text outputKey = new Text();
+        private Text outputKey = new Text();
         private Text outputValue = new Text();
 
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+        	System.out.println("Mapper löft");
         	String file = value.toString();
         	String [] itemsets = file.split("\n");
     
@@ -40,7 +39,7 @@ public class AssociationConstruction_Mapper extends Mapper<Text, Text, Text, Tex
                 	}        		
             	}
             	
-            	for (int j = 0; i<combinations.length; j++) {
+            	for (int j = 0; j<combinations.length; j++) {
             		String [] combination = combinations [j];
             		String combinationString = arrayToString (combination);
             		outputKey.set(combinationString);
