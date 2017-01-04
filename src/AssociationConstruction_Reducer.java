@@ -25,6 +25,9 @@ public class AssociationConstruction_Reducer extends Reducer<Text,Text,Text,Text
                 		supports.put(a[0], Integer.parseInt(a[1]));
                 	}
                 }
+                if (key.toString().equals("")) {
+                	support = Apriori_Main.NUMBER_LINES;
+                }
                 Iterator it = supports.entrySet().iterator();
                 while (it.hasNext()) {
                     Map.Entry pair = (Map.Entry)it.next();

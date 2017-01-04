@@ -40,15 +40,18 @@ public class Apriori_Main extends Configured implements Tool {
 	 */
 	
 	
-	public static final int NUMBER_COMBINATIONS = 4;
-	public static final int SUPPORT_THRESHOLD = 10; //support threshold in absolute numbers
+	public static final int NUMBER_COMBINATIONS = 3;
+	public static final double RELATIVE_SUPPORT_THRESSHOLD = 0.01;
+	public static int SUPPORT_THRESHOLD = 0; //support threshold in absolute numbers
 	public static final double CONFIDENCE = 0.5; //confidence in relative numbers
 	public static final double INTEREST = 0.8;
 	public static final Object EMPTY_SYMBOL = "{X}";
-	
-	public static int currentNumberCombinations = 3;
+	public static int NUMBER_LINES = 9835;
 
 	public static void main(String[] args) throws Exception {
+		if (RELATIVE_SUPPORT_THRESSHOLD>0) {
+			SUPPORT_THRESHOLD = (int)(NUMBER_LINES * RELATIVE_SUPPORT_THRESSHOLD);
+		}
 		if (args.length != 2) {
 			   System.err.println("Enter valid number of arguments <Inputdirectory>  <Outputlocation>");
 			   System.exit(0);
@@ -80,9 +83,13 @@ public class Apriori_Main extends Configured implements Tool {
 		  job.setInputFormatClass(TextInputFormat.class);
 		  job.setOutputFormatClass(TextOutputFormat.class);
 
+		  Path tempPath = new Path("data/" + 0 + "/temp");
+		  
 		  TextInputFormat.addInputPath(job, new Path("data/" + 0 + "/input"));
-		  TextOutputFormat.setOutputPath(job, new Path("data/" + 0 + "/temp"));
+		  TextOutputFormat.setOutputPath(job, tempPath);
 
+		  tempPath.getFileSystem(new Configuration()).delete(tempPath, true);
+		  
 		  job.waitForCompletion(true);
 
 		  /*
@@ -101,8 +108,12 @@ public class Apriori_Main extends Configured implements Tool {
 		  job2.setInputFormatClass(TextInputFormat.class);
 		  job2.setOutputFormatClass(TextOutputFormat.class);
 
-		  TextInputFormat.addInputPath(job2, new Path("data/" + 0 + "/temp"));
-		  TextOutputFormat.setOutputPath(job2, new Path("data/" + 0 + "/output"));
+		  Path outputPath = new Path("data/" + 0 + "/output");
+		  
+		  TextInputFormat.addInputPath(job2, tempPath);
+		  TextOutputFormat.setOutputPath(job2, outputPath);
+		  
+		  outputPath.getFileSystem(new Configuration()).delete(outputPath, true);
 		  
 		  return job2.waitForCompletion(true) ? 0 : 1;
 	}
