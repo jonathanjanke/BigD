@@ -12,6 +12,7 @@ public class AssociationConstruction_Reducer extends Reducer<Text,Text,Text,Text
         private int s = Apriori_Main.SUPPORT_THRESHOLD;
         
         public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+        	System.out.println("Reduced 2 löft");
                 HashMap<String, Integer> supports = new HashMap<String, Integer>();
                 int support;
                 for (Text val : values) {

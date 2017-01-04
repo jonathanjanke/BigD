@@ -1,8 +1,0 @@
-/Apriori_Main.class
-/Apriori_Mapper.class
-/Apriori_Reducer.class
-/wordCountCombiner.class
-/FrequentItemset_Mapper.class
-/FrequentItemset_Reducer.class
-/AssociationConstruction_Mapper.class
-/AssociationConstruction_Reducer.class
