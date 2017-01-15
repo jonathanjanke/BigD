@@ -8,16 +8,16 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class FrequentItemset_Combiner extends Reducer<Text,Text,Text,Text> {
-        private Text result = new Text();
+public class FrequentItemset_Combiner extends Reducer<Text,IntWritable,Text,IntWritable> {
+        private IntWritable result = new IntWritable();
         private int s = Apriori_Main.SUPPORT_THRESHOLD;
         boolean write = false;
         
-        public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+        public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
             int counter = 0;
             
 //            System.out.println("FrequentItemset_Combiner");
-            	for (Text val : values) {
+            	for (IntWritable val : values) {
             		String value = val.toString();
             		if (val.toString().equals("")) {
             			context.write(key, val);

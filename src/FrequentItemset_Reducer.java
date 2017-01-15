@@ -12,9 +12,9 @@ public class FrequentItemset_Reducer extends Reducer<Text,IntWritable,Text,IntWr
         private IntWritable result = new IntWritable();
         private int s = Apriori_Main.SUPPORT_THRESHOLD;
         
-        public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+        public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
             int counter = 0;
-            for (Text val : values) {
+            for (IntWritable val : values) {
             	counter ++;
             }
         	

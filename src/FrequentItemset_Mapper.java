@@ -21,6 +21,7 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritab
         private Text word = new Text();
         private static int numberCombinations;
         String [][] basketCombinations;
+        
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
       	   	String file = value.toString();
       	   	file = file.replace("\t", "");

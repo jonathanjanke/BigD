@@ -1,0 +1,373 @@
+beef,butter,other vegetables,root vegetables,whole milk	10
+beef,butter,rolls/buns,root vegetables,whole milk	11
+beef,citrus fruit,other vegetables,root vegetables,whole milk	14
+beef,domestic eggs,other vegetables,root vegetables,whole milk	12
+beef,other vegetables,rolls/buns,root vegetables,tropical fruit	13
+beef,other vegetables,rolls/buns,root vegetables,whole milk	17
+beef,other vegetables,rolls/buns,root vegetables,yogurt	10
+beef,other vegetables,rolls/buns,tropical fruit,whole milk	15
+beef,other vegetables,rolls/buns,whole milk,yogurt	11
+beef,other vegetables,root vegetables,soda,whole milk	10
+beef,other vegetables,root vegetables,tropical fruit,whole milk	19
+beef,other vegetables,root vegetables,whipped/sour cream,whole milk	10
+beef,other vegetables,root vegetables,whole milk,yogurt	13
+beef,other vegetables,tropical fruit,whipped/sour cream,whole milk	11
+beef,other vegetables,tropical fruit,whole milk,yogurt	13
+beef,other vegetables,whipped/sour cream,whole milk,yogurt	10
+beef,rolls/buns,root vegetables,tropical fruit,whole milk	14
+beef,rolls/buns,root vegetables,whole milk,yogurt	12
+beef,rolls/buns,tropical fruit,whole milk,yogurt	13
+beef,root vegetables,tropical fruit,whole milk,yogurt	10
+bottled beer,other vegetables,tropical fruit,whole milk,yogurt	11
+bottled water,butter,citrus fruit,other vegetables,whole milk	10
+bottled water,butter,other vegetables,root vegetables,whole milk	13
+bottled water,citrus fruit,other vegetables,root vegetables,whole milk	13
+bottled water,citrus fruit,other vegetables,tropical fruit,whole milk	13
+bottled water,citrus fruit,other vegetables,whole milk,yogurt	10
+bottled water,frozen vegetables,other vegetables,root vegetables,whole milk	10
+bottled water,fruit/vegetable juice,other vegetables,root vegetables,whole milk	11
+bottled water,newspapers,rolls/buns,soda,yogurt	10
+bottled water,other vegetables,pip fruit,root vegetables,whole milk	11
+bottled water,other vegetables,rolls/buns,root vegetables,whole milk	12
+bottled water,other vegetables,rolls/buns,tropical fruit,yogurt	10
+bottled water,other vegetables,rolls/buns,whole milk,yogurt	10
+bottled water,other vegetables,root vegetables,tropical fruit,whole milk	17
+bottled water,other vegetables,root vegetables,tropical fruit,yogurt	14
+bottled water,other vegetables,root vegetables,whole milk,yogurt	14
+bottled water,other vegetables,soda,whole milk,yogurt	10
+bottled water,other vegetables,tropical fruit,whipped/sour cream,whole milk	10
+bottled water,other vegetables,tropical fruit,whipped/sour cream,yogurt	10
+bottled water,other vegetables,tropical fruit,whole milk,yogurt	20
+bottled water,rolls/buns,root vegetables,tropical fruit,whole milk	11
+bottled water,rolls/buns,soda,tropical fruit,yogurt	10
+bottled water,rolls/buns,tropical fruit,whole milk,yogurt	13
+bottled water,root vegetables,tropical fruit,whole milk,yogurt	15
+bottled water,soda,tropical fruit,whole milk,yogurt	10
+bottled water,tropical fruit,whipped/sour cream,whole milk,yogurt	11
+brown bread,citrus fruit,other vegetables,root vegetables,whole milk	12
+brown bread,other vegetables,pip fruit,root vegetables,whole milk	12
+brown bread,other vegetables,pip fruit,tropical fruit,whole milk	13
+brown bread,other vegetables,pip fruit,tropical fruit,yogurt	10
+brown bread,other vegetables,pip fruit,whole milk,yogurt	10
+brown bread,other vegetables,rolls/buns,root vegetables,whole milk	10
+brown bread,other vegetables,root vegetables,tropical fruit,whole milk	12
+brown bread,other vegetables,sausage,whole milk,yogurt	10
+brown bread,other vegetables,soda,whole milk,yogurt	11
+brown bread,other vegetables,tropical fruit,whole milk,yogurt	12
+brown bread,pip fruit,tropical fruit,whole milk,yogurt	11
+butter milk,other vegetables,root vegetables,whole milk,yogurt	10
+butter,citrus fruit,other vegetables,root vegetables,whole milk	12
+butter,citrus fruit,other vegetables,tropical fruit,whole milk	10
+butter,curd,other vegetables,tropical fruit,yogurt	10
+butter,curd,other vegetables,whipped/sour cream,whole milk	10
+butter,curd,other vegetables,whole milk,yogurt	11
+butter,curd,tropical fruit,whole milk,yogurt	12
+butter,domestic eggs,other vegetables,root vegetables,whole milk	14
+butter,domestic eggs,other vegetables,tropical fruit,whole milk	13
+butter,domestic eggs,other vegetables,tropical fruit,yogurt	11
+butter,domestic eggs,other vegetables,whipped/sour cream,whole milk	12
+butter,domestic eggs,other vegetables,whole milk,yogurt	13
+butter,domestic eggs,root vegetables,whole milk,yogurt	11
+butter,domestic eggs,tropical fruit,whole milk,yogurt	12
+butter,fruit/vegetable juice,other vegetables,tropical fruit,whipped/sour cream	10
+butter,fruit/vegetable juice,other vegetables,whole milk,yogurt	10
+butter,margarine,other vegetables,whole milk,yogurt	10
+butter,napkins,other vegetables,whipped/sour cream,whole milk	10
+butter,onions,other vegetables,root vegetables,whole milk	13
+butter,other vegetables,pip fruit,whipped/sour cream,whole milk	13
+butter,other vegetables,pip fruit,whole milk,yogurt	10
+butter,other vegetables,pork,root vegetables,whole milk	10
+butter,other vegetables,pork,whipped/sour cream,whole milk	10
+butter,other vegetables,rolls/buns,root vegetables,whole milk	15
+butter,other vegetables,rolls/buns,whipped/sour cream,whole milk	12
+butter,other vegetables,root vegetables,tropical fruit,whipped/sour cream	11
+butter,other vegetables,root vegetables,tropical fruit,whole milk	15
+butter,other vegetables,root vegetables,tropical fruit,yogurt	13
+butter,other vegetables,root vegetables,whipped/sour cream,whole milk	16
+butter,other vegetables,root vegetables,white bread,whole milk	10
+butter,other vegetables,root vegetables,whole milk,yogurt	16
+butter,other vegetables,sausage,whipped/sour cream,whole milk	11
+butter,other vegetables,soda,whipped/sour cream,whole milk	10
+butter,other vegetables,tropical fruit,whipped/sour cream,whole milk	16
+butter,other vegetables,tropical fruit,whipped/sour cream,yogurt	12
+butter,other vegetables,tropical fruit,white bread,yogurt	10
+butter,other vegetables,tropical fruit,whole milk,yogurt	22
+butter,other vegetables,whipped/sour cream,whole milk,yogurt	15
+butter,other vegetables,white bread,whole milk,yogurt	10
+butter,rolls/buns,root vegetables,whipped/sour cream,whole milk	10
+butter,root vegetables,tropical fruit,whipped/sour cream,whole milk	10
+butter,root vegetables,tropical fruit,whole milk,yogurt	17
+butter,root vegetables,whipped/sour cream,whole milk,yogurt	11
+butter,sliced cheese,tropical fruit,whole milk,yogurt	10
+butter,tropical fruit,whipped/sour cream,whole milk,yogurt	12
+chicken,domestic eggs,other vegetables,rolls/buns,whole milk	10
+chicken,domestic eggs,other vegetables,root vegetables,whole milk	12
+chicken,other vegetables,rolls/buns,root vegetables,whole milk	10
+chicken,other vegetables,rolls/buns,whipped/sour cream,whole milk	11
+chicken,other vegetables,root vegetables,tropical fruit,whole milk	10
+chicken,other vegetables,root vegetables,whole milk,yogurt	12
+chocolate,other vegetables,rolls/buns,soda,whole milk	10
+citrus fruit,cream cheese ,domestic eggs,other vegetables,whole milk	11
+citrus fruit,cream cheese ,other vegetables,whipped/sour cream,whole milk	11
+citrus fruit,curd,other vegetables,root vegetables,whole milk	11
+citrus fruit,curd,other vegetables,tropical fruit,whole milk	10
+citrus fruit,curd,other vegetables,whole milk,yogurt	12
+citrus fruit,curd,tropical fruit,whole milk,yogurt	10
+citrus fruit,domestic eggs,other vegetables,root vegetables,whole milk	12
+citrus fruit,domestic eggs,other vegetables,tropical fruit,whole milk	10
+citrus fruit,domestic eggs,other vegetables,whipped/sour cream,whole milk	12
+citrus fruit,domestic eggs,other vegetables,whole milk,yogurt	10
+citrus fruit,frozen vegetables,fruit/vegetable juice,other vegetables,whole milk	10
+citrus fruit,frozen vegetables,other vegetables,root vegetables,whole milk	14
+citrus fruit,frozen vegetables,other vegetables,whole milk,yogurt	10
+citrus fruit,fruit/vegetable juice,other vegetables,root vegetables,soda	10
+citrus fruit,fruit/vegetable juice,other vegetables,root vegetables,tropical fruit	12
+citrus fruit,fruit/vegetable juice,other vegetables,root vegetables,whole milk	13
+citrus fruit,fruit/vegetable juice,other vegetables,tropical fruit,whole milk	13
+citrus fruit,fruit/vegetable juice,other vegetables,tropical fruit,yogurt	11
+citrus fruit,fruit/vegetable juice,other vegetables,whole milk,yogurt	14
+citrus fruit,fruit/vegetable juice,root vegetables,tropical fruit,whole milk	10
+citrus fruit,herbs,other vegetables,root vegetables,whole milk	10
+citrus fruit,newspapers,other vegetables,root vegetables,whole milk	10
+citrus fruit,oil,other vegetables,root vegetables,whole milk	10
+citrus fruit,other vegetables,pip fruit,root vegetables,tropical fruit	12
+citrus fruit,other vegetables,pip fruit,root vegetables,whole milk	16
+citrus fruit,other vegetables,pip fruit,tropical fruit,whole milk	13
+citrus fruit,other vegetables,pip fruit,whole milk,yogurt	12
+citrus fruit,other vegetables,pork,root vegetables,whole milk	10
+citrus fruit,other vegetables,rolls/buns,root vegetables,tropical fruit	11
+citrus fruit,other vegetables,rolls/buns,root vegetables,whole milk	13
+citrus fruit,other vegetables,rolls/buns,tropical fruit,whole milk	12
+citrus fruit,other vegetables,root vegetables,sausage,whole milk	10
+citrus fruit,other vegetables,root vegetables,soda,whole milk	12
+citrus fruit,other vegetables,root vegetables,tropical fruit,whipped/sour cream	12
+citrus fruit,other vegetables,root vegetables,tropical fruit,whole milk	30
+citrus fruit,other vegetables,root vegetables,tropical fruit,yogurt	17
+citrus fruit,other vegetables,root vegetables,whipped/sour cream,whole milk	15
+citrus fruit,other vegetables,root vegetables,whipped/sour cream,yogurt	12
+citrus fruit,other vegetables,root vegetables,whole milk,yogurt	23
+citrus fruit,other vegetables,sausage,whipped/sour cream,whole milk	12
+citrus fruit,other vegetables,tropical fruit,whipped/sour cream,whole milk	16
+citrus fruit,other vegetables,tropical fruit,whipped/sour cream,yogurt	10
+citrus fruit,other vegetables,tropical fruit,whole milk,yogurt	24
+citrus fruit,other vegetables,whipped/sour cream,whole milk,yogurt	17
+citrus fruit,pip fruit,root vegetables,tropical fruit,whole milk	11
+citrus fruit,pip fruit,tropical fruit,whole milk,yogurt	10
+citrus fruit,rolls/buns,tropical fruit,whole milk,yogurt	10
+citrus fruit,root vegetables,tropical fruit,whole milk,yogurt	15
+citrus fruit,root vegetables,whipped/sour cream,whole milk,yogurt	11
+citrus fruit,tropical fruit,whipped/sour cream,whole milk,yogurt	11
+cream cheese ,curd,other vegetables,root vegetables,yogurt	10
+cream cheese ,curd,other vegetables,whipped/sour cream,yogurt	10
+cream cheese ,curd,other vegetables,whole milk,yogurt	12
+cream cheese ,curd,whipped/sour cream,whole milk,yogurt	11
+cream cheese ,other vegetables,pip fruit,root vegetables,whole milk	10
+cream cheese ,other vegetables,pip fruit,whole milk,yogurt	11
+cream cheese ,other vegetables,root vegetables,whole milk,yogurt	13
+cream cheese ,other vegetables,tropical fruit,whole milk,yogurt	12
+cream cheese ,other vegetables,whipped/sour cream,whole milk,yogurt	12
+cream cheese ,root vegetables,whipped/sour cream,whole milk,yogurt	11
+curd,domestic eggs,other vegetables,root vegetables,whole milk	12
+curd,domestic eggs,tropical fruit,whole milk,yogurt	11
+curd,other vegetables,pastry,whole milk,yogurt	12
+curd,other vegetables,pip fruit,tropical fruit,yogurt	10
+curd,other vegetables,pip fruit,whipped/sour cream,whole milk	10
+curd,other vegetables,pip fruit,whole milk,yogurt	10
+curd,other vegetables,root vegetables,tropical fruit,whole milk	12
+curd,other vegetables,root vegetables,tropical fruit,yogurt	10
+curd,other vegetables,root vegetables,whole milk,yogurt	15
+curd,other vegetables,sausage,whole milk,yogurt	10
+curd,other vegetables,tropical fruit,whipped/sour cream,whole milk	11
+curd,other vegetables,tropical fruit,whipped/sour cream,yogurt	10
+curd,other vegetables,tropical fruit,whole milk,yogurt	17
+curd,other vegetables,whipped/sour cream,whole milk,yogurt	11
+curd,pip fruit,tropical fruit,whole milk,yogurt	11
+curd,rolls/buns,whipped/sour cream,whole milk,yogurt	10
+curd,root vegetables,tropical fruit,whole milk,yogurt	13
+curd,tropical fruit,whipped/sour cream,whole milk,yogurt	12
+domestic eggs,fruit/vegetable juice,other vegetables,root vegetables,whole milk	11
+domestic eggs,margarine,other vegetables,root vegetables,whole milk	11
+domestic eggs,other vegetables,pastry,whole milk,yogurt	10
+domestic eggs,other vegetables,pip fruit,root vegetables,whole milk	12
+domestic eggs,other vegetables,pip fruit,whipped/sour cream,whole milk	12
+domestic eggs,other vegetables,pork,root vegetables,whole milk	10
+domestic eggs,other vegetables,root vegetables,soda,whole milk	10
+domestic eggs,other vegetables,root vegetables,tropical fruit,whole milk	15
+domestic eggs,other vegetables,root vegetables,tropical fruit,yogurt	11
+domestic eggs,other vegetables,root vegetables,whipped/sour cream,whole milk	13
+domestic eggs,other vegetables,root vegetables,whole milk,yogurt	14
+domestic eggs,other vegetables,tropical fruit,whipped/sour cream,whole milk	11
+domestic eggs,other vegetables,tropical fruit,whole milk,yogurt	16
+domestic eggs,other vegetables,whipped/sour cream,whole milk,yogurt	13
+domestic eggs,root vegetables,tropical fruit,whole milk,yogurt	15
+domestic eggs,root vegetables,whipped/sour cream,whole milk,yogurt	11
+domestic eggs,tropical fruit,whipped/sour cream,whole milk,yogurt	11
+frankfurter,other vegetables,pip fruit,root vegetables,whole milk	10
+frankfurter,other vegetables,pip fruit,tropical fruit,whole milk	10
+frankfurter,other vegetables,pip fruit,whole milk,yogurt	11
+frankfurter,other vegetables,rolls/buns,whole milk,yogurt	10
+frankfurter,other vegetables,root vegetables,tropical fruit,whole milk	10
+frankfurter,other vegetables,root vegetables,whole milk,yogurt	12
+frankfurter,other vegetables,tropical fruit,whole milk,yogurt	14
+frankfurter,rolls/buns,root vegetables,whole milk,yogurt	11
+frankfurter,root vegetables,tropical fruit,whole milk,yogurt	12
+frozen meals,pip fruit,tropical fruit,whole milk,yogurt	10
+frozen vegetables,fruit/vegetable juice,other vegetables,root vegetables,whole milk	12
+frozen vegetables,fruit/vegetable juice,other vegetables,whole milk,yogurt	14
+frozen vegetables,other vegetables,root vegetables,tropical fruit,whole milk	13
+frozen vegetables,other vegetables,root vegetables,whipped/sour cream,whole milk	13
+frozen vegetables,other vegetables,root vegetables,whipped/sour cream,yogurt	10
+frozen vegetables,other vegetables,root vegetables,whole milk,yogurt	15
+frozen vegetables,other vegetables,tropical fruit,whole milk,yogurt	12
+frozen vegetables,other vegetables,whipped/sour cream,whole milk,yogurt	15
+fruit/vegetable juice,other vegetables,pastry,whole milk,yogurt	10
+fruit/vegetable juice,other vegetables,pip fruit,root vegetables,whole milk	13
+fruit/vegetable juice,other vegetables,pip fruit,tropical fruit,whole milk	10
+fruit/vegetable juice,other vegetables,pip fruit,tropical fruit,yogurt	10
+fruit/vegetable juice,other vegetables,pip fruit,whole milk,yogurt	15
+fruit/vegetable juice,other vegetables,rolls/buns,whole milk,yogurt	11
+fruit/vegetable juice,other vegetables,root vegetables,soda,whole milk	13
+fruit/vegetable juice,other vegetables,root vegetables,tropical fruit,whole milk	14
+fruit/vegetable juice,other vegetables,root vegetables,tropical fruit,yogurt	11
+fruit/vegetable juice,other vegetables,root vegetables,whipped/sour cream,whole milk	11
+fruit/vegetable juice,other vegetables,root vegetables,whole milk,yogurt	19
+fruit/vegetable juice,other vegetables,soda,whole milk,yogurt	13
+fruit/vegetable juice,other vegetables,tropical fruit,whipped/sour cream,whole milk	10
+fruit/vegetable juice,other vegetables,tropical fruit,whipped/sour cream,yogurt	11
+fruit/vegetable juice,other vegetables,tropical fruit,whole milk,yogurt	18
+fruit/vegetable juice,other vegetables,whipped/sour cream,whole milk,yogurt	14
+fruit/vegetable juice,pip fruit,root vegetables,whole milk,yogurt	11
+fruit/vegetable juice,root vegetables,tropical fruit,whole milk,yogurt	10
+fruit/vegetable juice,root vegetables,whipped/sour cream,whole milk,yogurt	10
+grapes,other vegetables,tropical fruit,whole milk,yogurt	10
+ham,other vegetables,pip fruit,tropical fruit,whole milk	11
+ham,other vegetables,pip fruit,tropical fruit,yogurt	10
+ham,other vegetables,tropical fruit,whole milk,yogurt	12
+hard cheese,other vegetables,root vegetables,whipped/sour cream,whole milk	10
+hard cheese,other vegetables,root vegetables,whole milk,yogurt	12
+herbs,other vegetables,rolls/buns,root vegetables,whole milk	10
+herbs,other vegetables,root vegetables,tropical fruit,whole milk	10
+long life bakery product,other vegetables,whipped/sour cream,whole milk,yogurt	12
+margarine,other vegetables,rolls/buns,root vegetables,whole milk	11
+margarine,other vegetables,rolls/buns,whole milk,yogurt	11
+margarine,other vegetables,root vegetables,tropical fruit,yogurt	10
+margarine,other vegetables,root vegetables,whipped/sour cream,whole milk	11
+margarine,other vegetables,root vegetables,whole milk,yogurt	13
+margarine,other vegetables,tropical fruit,whipped/sour cream,yogurt	10
+margarine,other vegetables,tropical fruit,whole milk,yogurt	10
+margarine,other vegetables,whipped/sour cream,whole milk,yogurt	11
+margarine,rolls/buns,root vegetables,whole milk,yogurt	11
+margarine,root vegetables,tropical fruit,whole milk,yogurt	10
+margarine,tropical fruit,whipped/sour cream,whole milk,yogurt	10
+newspapers,other vegetables,rolls/buns,soda,whole milk	10
+newspapers,other vegetables,rolls/buns,tropical fruit,whole milk	10
+newspapers,other vegetables,rolls/buns,tropical fruit,yogurt	10
+newspapers,other vegetables,rolls/buns,whole milk,yogurt	11
+newspapers,other vegetables,root vegetables,tropical fruit,whole milk	11
+newspapers,other vegetables,soda,tropical fruit,whole milk	11
+newspapers,other vegetables,tropical fruit,whole milk,yogurt	13
+newspapers,rolls/buns,tropical fruit,whole milk,yogurt	11
+oil,other vegetables,root vegetables,tropical fruit,whole milk	13
+oil,other vegetables,root vegetables,tropical fruit,yogurt	10
+oil,other vegetables,root vegetables,whole milk,yogurt	14
+oil,other vegetables,tropical fruit,whole milk,yogurt	11
+oil,root vegetables,tropical fruit,whole milk,yogurt	11
+onions,other vegetables,rolls/buns,root vegetables,whole milk	10
+onions,other vegetables,root vegetables,tropical fruit,whole milk	10
+onions,other vegetables,root vegetables,whipped/sour cream,whole milk	11
+onions,other vegetables,root vegetables,whole milk,yogurt	10
+onions,other vegetables,tropical fruit,whole milk,yogurt	11
+other vegetables,pastry,pip fruit,whole milk,yogurt	10
+other vegetables,pastry,rolls/buns,root vegetables,whole milk	11
+other vegetables,pastry,rolls/buns,whole milk,yogurt	12
+other vegetables,pastry,root vegetables,soda,whole milk	11
+other vegetables,pastry,root vegetables,whole milk,yogurt	16
+other vegetables,pastry,sausage,whole milk,yogurt	10
+other vegetables,pastry,soda,whole milk,yogurt	11
+other vegetables,pastry,tropical fruit,whole milk,yogurt	11
+other vegetables,pastry,whipped/sour cream,whole milk,yogurt	11
+other vegetables,pip fruit,rolls/buns,root vegetables,whole milk	10
+other vegetables,pip fruit,rolls/buns,whole milk,yogurt	11
+other vegetables,pip fruit,root vegetables,soda,whole milk	13
+other vegetables,pip fruit,root vegetables,tropical fruit,whipped/sour cream	10
+other vegetables,pip fruit,root vegetables,tropical fruit,whole milk	24
+other vegetables,pip fruit,root vegetables,tropical fruit,yogurt	15
+other vegetables,pip fruit,root vegetables,whipped/sour cream,whole milk	17
+other vegetables,pip fruit,root vegetables,whole milk,yogurt	22
+other vegetables,pip fruit,sausage,whole milk,yogurt	10
+other vegetables,pip fruit,soda,whole milk,yogurt	12
+other vegetables,pip fruit,tropical fruit,whipped/sour cream,whole milk	16
+other vegetables,pip fruit,tropical fruit,whipped/sour cream,yogurt	13
+other vegetables,pip fruit,tropical fruit,whole milk,yogurt	23
+other vegetables,pip fruit,whipped/sour cream,whole milk,yogurt	15
+other vegetables,pork,rolls/buns,root vegetables,whole milk	11
+other vegetables,pork,root vegetables,whole milk,yogurt	11
+other vegetables,rice,root vegetables,whole milk,yogurt	13
+other vegetables,rolls/buns,root vegetables,sausage,whole milk	10
+other vegetables,rolls/buns,root vegetables,soda,whole milk	15
+other vegetables,rolls/buns,root vegetables,soda,yogurt	10
+other vegetables,rolls/buns,root vegetables,tropical fruit,whipped/sour cream	12
+other vegetables,rolls/buns,root vegetables,tropical fruit,whole milk	20
+other vegetables,rolls/buns,root vegetables,tropical fruit,yogurt	18
+other vegetables,rolls/buns,root vegetables,whipped/sour cream,whole milk	16
+other vegetables,rolls/buns,root vegetables,whipped/sour cream,yogurt	11
+other vegetables,rolls/buns,root vegetables,whole milk,yogurt	23
+other vegetables,rolls/buns,soda,tropical fruit,whole milk	11
+other vegetables,rolls/buns,soda,tropical fruit,yogurt	12
+other vegetables,rolls/buns,soda,whole milk,yogurt	16
+other vegetables,rolls/buns,tropical fruit,whipped/sour cream,whole milk	12
+other vegetables,rolls/buns,tropical fruit,whipped/sour cream,yogurt	13
+other vegetables,rolls/buns,tropical fruit,whole milk,yogurt	25
+other vegetables,rolls/buns,whipped/sour cream,whole milk,yogurt	13
+other vegetables,root vegetables,sausage,soda,whole milk	10
+other vegetables,root vegetables,sausage,tropical fruit,whole milk	12
+other vegetables,root vegetables,sausage,whole milk,yogurt	16
+other vegetables,root vegetables,shopping bags,soda,whole milk	10
+other vegetables,root vegetables,shopping bags,whole milk,yogurt	11
+other vegetables,root vegetables,sliced cheese,tropical fruit,whole milk	10
+other vegetables,root vegetables,sliced cheese,whipped/sour cream,whole milk	10
+other vegetables,root vegetables,sliced cheese,whole milk,yogurt	11
+other vegetables,root vegetables,soda,tropical fruit,whole milk	11
+other vegetables,root vegetables,soda,whole milk,yogurt	14
+other vegetables,root vegetables,sugar,whole milk,yogurt	10
+other vegetables,root vegetables,tropical fruit,whipped/sour cream,whole milk	19
+other vegetables,root vegetables,tropical fruit,whipped/sour cream,yogurt	17
+other vegetables,root vegetables,tropical fruit,white bread,whole milk	10
+other vegetables,root vegetables,tropical fruit,whole milk,yogurt	35
+other vegetables,root vegetables,waffles,whole milk,yogurt	10
+other vegetables,root vegetables,whipped/sour cream,white bread,whole milk	11
+other vegetables,root vegetables,whipped/sour cream,whole milk,yogurt	23
+other vegetables,root vegetables,white bread,whole milk,yogurt	13
+other vegetables,sausage,soda,whole milk,yogurt	10
+other vegetables,sausage,tropical fruit,whole milk,yogurt	14
+other vegetables,sausage,whipped/sour cream,whole milk,yogurt	12
+other vegetables,sliced cheese,tropical fruit,whole milk,yogurt	11
+other vegetables,soda,tropical fruit,whole milk,yogurt	11
+other vegetables,soda,whipped/sour cream,whole milk,yogurt	11
+other vegetables,soft cheese,tropical fruit,whole milk,yogurt	11
+other vegetables,tropical fruit,whipped/sour cream,whole milk,yogurt	24
+other vegetables,tropical fruit,white bread,whole milk,yogurt	11
+other vegetables,whipped/sour cream,white bread,whole milk,yogurt	10
+pastry,rolls/buns,tropical fruit,whole milk,yogurt	15
+pastry,root vegetables,sausage,whole milk,yogurt	12
+pastry,root vegetables,tropical fruit,whole milk,yogurt	10
+pip fruit,rolls/buns,root vegetables,tropical fruit,whole milk	10
+pip fruit,rolls/buns,tropical fruit,whole milk,yogurt	10
+pip fruit,root vegetables,sausage,whole milk,yogurt	10
+pip fruit,root vegetables,soda,whole milk,yogurt	12
+pip fruit,root vegetables,tropical fruit,whole milk,yogurt	18
+pip fruit,root vegetables,whipped/sour cream,whole milk,yogurt	11
+pip fruit,root vegetables,white bread,whole milk,yogurt	10
+pip fruit,tropical fruit,whipped/sour cream,whole milk,yogurt	11
+rolls/buns,root vegetables,sausage,tropical fruit,whole milk	10
+rolls/buns,root vegetables,sausage,whole milk,yogurt	12
+rolls/buns,root vegetables,tropical fruit,whipped/sour cream,whole milk	11
+rolls/buns,root vegetables,tropical fruit,whipped/sour cream,yogurt	11
+rolls/buns,root vegetables,tropical fruit,whole milk,yogurt	22
+rolls/buns,root vegetables,whipped/sour cream,whole milk,yogurt	12
+rolls/buns,sausage,tropical fruit,whole milk,yogurt	11
+rolls/buns,soda,tropical fruit,whole milk,yogurt	10
+rolls/buns,tropical fruit,whipped/sour cream,whole milk,yogurt	15
+root vegetables,sausage,tropical fruit,whole milk,yogurt	15
+root vegetables,sliced cheese,tropical fruit,whole milk,yogurt	10
+root vegetables,tropical fruit,whipped/sour cream,whole milk,yogurt	16

@@ -44,9 +44,9 @@ public class Apriori_Main extends Configured implements Tool {
 	 */
 	
 	public static int NUMBER_COMBINATIONS = 1;
-	public static final int TOTAL_NUMBER_COMBINATIONS = 8;
+	public static final int TOTAL_NUMBER_COMBINATIONS = 10;
 	public static double RELATIVE_SUPPORT_THRESSHOLD = 0;
-	public static int SUPPORT_THRESHOLD = 500; //support threshold in absolute numbers
+	public static int SUPPORT_THRESHOLD = 10; //support threshold in absolute numbers
 	public static final double CONFIDENCE = 0.5; //confidence in relative numbers
 //	public static final double INTEREST = 0.8;
 	public static final Object EMPTY_SYMBOL = "{X}";
