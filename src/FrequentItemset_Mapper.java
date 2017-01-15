@@ -1,7 +1,9 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.apache.hadoop.io.ArrayWritable;
@@ -9,40 +11,29 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;  
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.v2.hs.webapp.HsAboutPage;
+import org.junit.experimental.theories.Theories;
 
 import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
-public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, Text> {
+public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritable> {
 		
-        private final static Text one = new Text("1");
+        private final static IntWritable result = new IntWritable(1);
         private Text word = new Text();
-
+        private static int numberCombinations;
+        String [][] basketCombinations;
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
       	   	String file = value.toString();
-      	   	int numberCombinations = 1;
-      	   	int totalNumberCombinations = Apriori_Main.NUMBER_COMBINATIONS;
+      	   	file = file.replace("\t", "");
+      	   	numberCombinations = Apriori_Main.NUMBER_COMBINATIONS;
       	   	
       	   	String [] baskets  = file.split("\n");
-   		 	HashSet<String> hs = new HashSet<String> ();
    		 	
-   		 	 /*
-		     for (String basket : baskets) {
-			 	String [] elementsInBasket = basket.split(",");
-			  
-				for (String element : elementsInBasket) {
-					hs.add(element);
-				}
-			  }
-			  String [][] combinationsInBasket = this.combine(hs.toArray(new String[0]), numberCombinations);
-			  */
-   		 	
-   		 	  for (; numberCombinations<=totalNumberCombinations; numberCombinations++) {
 				  for (String basket : baskets) {
-					  
 					  String [] elementsInBasket = basket.split(",");
+					  Arrays.sort(elementsInBasket);
+					  ArrayList <String> reducedElements = this.reduceElementsInBasket(elementsInBasket);
 					  if (elementsInBasket.length >=numberCombinations) {
-						  Arrays.sort(elementsInBasket);
-						  String [][] basketCombinations = combine (elementsInBasket, numberCombinations);
+						  basketCombinations = combineToArray (reducedElements, numberCombinations);
 						  
 						  for (String [] element : basketCombinations) {
 							  String curr = "";
@@ -51,23 +42,70 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, Text> {
 							  }
 							  curr += element [element.length-1];
 							  word.set(curr);
-						      context.write(word, one);			      
+							  result.set(1);
+						      context.write(word, result);			      
 						  }
+						  
+//						  if (numberCombinations==1) {
+//							  HashMap <String, Integer> hashMap = hashMapToArray (reducedElements, numberCombinations+1);
+//							  Set<String> keys = hashMap.keySet();
+//							  for (String currentKey: keys) {
+//								  word.set(currentKey);
+//								  result.set(hashMap.get(currentKey) + "");
+//								  context.write(word, result);
+//							  }
+//						  }
 					  }
 				  }
-   		 	  }
+        }
+        
+        private HashMap<String, Integer> hashMapToArray(ArrayList<String> elements, int combinationSize) {
+        	HashMap<String, Integer> temp = new HashMap <String, Integer>();
+        	int size = elements.size() - 1;
+
+        	for (int i=0; i<elements.size(); i++) {
+				//get ith element from elements and set it to array
+				String key = elements.get(i);
+				
+//				// call function on remaining elements;
+//				ArrayList<String> tempElements = new ArrayList <String>();
+//				for (int k = 0; k<elements.size(); k++) {
+//					tempElements.add(elements.get(k));
+//				}
+//				for (int j=0; j<=i; j++) {
+//					tempElements.remove(0);
+//				}
+//				
+//				int hashValue = hash (tempElements, combinationSize-1);
+				temp.put(key, size);
+			}
+    		
+    		if (combinationSize > 0) return temp;
+    		else return null;
+		}
+
+		private int hash(ArrayList<String> elements, int combinationSize) {
+			System.out.print(elements.size());
+			return elements.size();
+		}
+
+		//TODO: get rid of this method
+        private ArrayList<String> reduceElementsInBasket (String [] elementsInBasket) {
+        	ArrayList<String> reducedElements = new ArrayList<String>();
+        	for (String element : elementsInBasket) {
+//        		if (itemset.size()>0) {
+//        			if (itemset.contains(element)) reducedElements.add(element);
+//        			// if (itemset.containsKey(element)) 
+//        		} else if (numberCombinations==1) {
+        			reducedElements.add(element);
+//        		}	
+        	}
+        	return reducedElements;
         }
     	
-    	private static String [][] combine (String [] elements, int combinationSize) {
-    		ArrayList<String> elList = new ArrayList<String>();
-    		for (String el : elements) {
-    			elList.add(el);
-    		}
-//    		int combinationNumber = 1;
-//    		for (int i=0; i<combinationSize; i++) {
-//    			combinationNumber *= elements.length - i;
-//    		}
-    		ArrayList<String[]> temp= combine(elList, combinationSize);
+    	private static String [][] combineToArray (ArrayList<String> elements, int combinationSize) {
+
+    		ArrayList<String[]> temp = combine(elements, combinationSize);
     		String [][] combinations = new String [temp.size()][];
     		for (int i=0; i<temp.size(); i++) {
     			combinations [i] = temp.get(i);
@@ -85,13 +123,20 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, Text> {
     				String [] s = {el};
     				combinations.add(s);
     			}
-    			return combinations;
     		}
-    		//recursion loop
+    		//recursion step
     		else {
     			for (int i=0; i<=elements.size()-combinationSize; i++) {
     				//get ith element from elements and set it to array
     				String [] s = {elements.get(i)};
+    				
+//    				if (numberCombinations == 2) {
+//    					if (Apriori_Main.hashMap.containsKey(elements.get(i).split(",")[0])) {
+//    						if (Apriori_Main.hashMap.get(elements.get(i)) < Apriori_Main.SUPPORT_THRESHOLD) {
+//    							break;
+//    						}
+//    					}
+//    				}
     				
     				// call function on remaining elements;
     				ArrayList<String> tempElements = new ArrayList <String>();
@@ -105,8 +150,8 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, Text> {
     				ArrayList<String []> temp = combine (tempElements, combinationSize-1);
     				for (String [] t : temp) combinations.add(concat(s, t));
     			}
-    			return combinations;
     		}
+    		return combinations;
     	}
     	
     	//from the internet: http://stackoverflow.com/questions/80476/how-can-i-concatenate-two-arrays-in-java

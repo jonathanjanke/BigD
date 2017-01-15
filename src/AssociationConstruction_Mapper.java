@@ -30,10 +30,6 @@ public class AssociationConstruction_Mapper extends Mapper<Object, Text, Text, T
         		String [][] combinations = new String [items.length][items.length-1];
             	String [] missing = new String [items.length];
             	
-            	if (items.length == 1) {
-            		
-            	}
-            	
             	for (int j=0; j<items.length; j++) {
             		missing [j] = items [j];
             		int k = 0;
