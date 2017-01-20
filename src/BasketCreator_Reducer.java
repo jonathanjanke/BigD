@@ -11,7 +11,9 @@ public class BasketCreator_Reducer extends Reducer<Text,Text,Text,Text> {
         
         public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
             for (Text val : values) {
-            	if (key.toString().split(",").length>Apriori_Main.NUMBER_COMBINATIONS+1) context.write(key, new Text(""));
+            	if (key.toString().split(",").length>Apriori_Main.NUMBER_COMBINATIONS+1) {
+            		context.write(key, new Text(""));
+            	}
             }
         }
         

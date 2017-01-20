@@ -10,7 +10,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.v2.hs.webapp.HsAboutPage;
 
-public class AssociationConstruction_Mapper extends Mapper<Object, Text, Text, Text> {
+public class NumberName_Mapper extends Mapper<Object, Text, Text, Text> {
 		
         private Text outputKey = new Text();
         private Text outputValue = new Text();
@@ -57,9 +57,9 @@ public class AssociationConstruction_Mapper extends Mapper<Object, Text, Text, T
         		
         		context.write(outputKey, outputValue);
         	}
-        	        	
+        	
+        	
         }
-        
 
 		private String arrayToString(String[] combination) {
 			String combinationString = "";

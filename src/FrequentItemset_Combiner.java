@@ -18,8 +18,7 @@ public class FrequentItemset_Combiner extends Reducer<Text,IntWritable,Text,IntW
             
 //            System.out.println("FrequentItemset_Combiner");
             	for (IntWritable val : values) {
-            		String value = val.toString();
-            		if (val.toString().equals("")) {
+            		if (val.equals(-1)) {
             			context.write(key, val);
             		} else {
             			write = true;

@@ -9,15 +9,7 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-/***
- * 
- * @author Jonathan, Rene, Marnik
- *
- *	currently not working because of attempt to convert numbers back to Strings - problem to be solved...
- *
- */
-
-public class AssociationConstruction_Reducer extends Reducer<Text,Text,Text,Text> {
+public class NumberName_Reducer extends Reducer<Text,Text,Text,Text> {
         private Text resultValue = new Text();
         private Text resultKey = new Text();
         private double confidence = Apriori_Main.CONFIDENCE;
@@ -25,37 +17,17 @@ public class AssociationConstruction_Reducer extends Reducer<Text,Text,Text,Text
         public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
                 HashMap<String, Integer> supports = new HashMap<String, Integer>();
                 int support = 1;
-                String keyString = key.toString();
-                //Object [] itemMapElements = new Object [0];
-                
-//                if (!keyString.equals("")) {
-//                	itemMapElements = Apriori_Main.itemMap.toArray();
-//                	String [] keys = keyString.split(",");
-//                	keyString = "";
-//                	for (int i = 0; i<keys.length-1; i++) {
-//                		keyString += (String)itemMapElements[Integer.parseInt(keys[i])] + ",";
-//                	}
-//                	keyString += (String)itemMapElements[Integer.parseInt(keys[keys.length-1])];
-//                }
-                
                 for (Text val : values) {
                 	String [] a = val.toString().split(":");
-                	
                 	if (a[0].equals(Apriori_Main.EMPTY_SYMBOL)) {
                 		support = Integer.parseInt(a[1]);
                 	} else {
-//                		if (!keyString.equals("")) {
-//                			a[0] = (String)itemMapElements[Integer.parseInt(a[0])];
-//                		}
                 		supports.put(a[0], Integer.parseInt(a[1]));
                 	}
-                	
                 }
-                
-                if (keyString.equals("")) {
+                if (key.toString().equals("")) {
                 	support = Apriori_Main.NUMBER_LINES;
                 }
-                
                 Iterator it = supports.entrySet().iterator();
                 while (it.hasNext()) {
                     Map.Entry pair = (Map.Entry)it.next();

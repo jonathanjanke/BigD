@@ -1,41 +1,98 @@
-beef,citrus fruit,pip fruit,root vegetables,other vegetables,whole milk,butter,bottled water	
-beef,citrus fruit,tropical fruit,pip fruit,root vegetables,other vegetables,whole milk,rolls/buns	
-beef,citrus fruit,tropical fruit,pip fruit,root vegetables,other vegetables,whole milk,rolls/buns	
-beef,citrus fruit,tropical fruit,root vegetables,other vegetables,whipped/sour cream,domestic eggs,oil	
-beef,citrus fruit,tropical fruit,root vegetables,other vegetables,whole milk,butter,yogurt,domestic eggs	
-beef,citrus fruit,tropical fruit,root vegetables,other vegetables,whole milk,butter,yogurt,whipped/sour cream,domestic eggs,rolls/buns	
-beef,citrus fruit,tropical fruit,root vegetables,other vegetables,whole milk,domestic eggs,rolls/buns	
-beef,citrus fruit,tropical fruit,root vegetables,other vegetables,whole milk,whipped/sour cream,rolls/buns	
-beef,other vegetables,whole milk,butter,yogurt,whipped/sour cream,domestic eggs,rolls/buns	
-beef,pip fruit,root vegetables,whole milk,butter,yogurt,whipped/sour cream,bottled water	
-beef,tropical fruit,pip fruit,other vegetables,whole milk,yogurt,whipped/sour cream,rolls/buns	
-beef,tropical fruit,pip fruit,root vegetables,other vegetables,whole milk,butter,whipped/sour cream,rolls/buns,oil	
-beef,tropical fruit,pip fruit,root vegetables,other vegetables,whole milk,yogurt,whipped/sour cream	
-beef,tropical fruit,pip fruit,root vegetables,whole milk,butter,yogurt,whipped/sour cream,domestic eggs,rolls/buns	
-beef,tropical fruit,root vegetables,other vegetables,whole milk,butter,yogurt,rolls/buns,oil	
-beef,tropical fruit,root vegetables,other vegetables,whole milk,butter,yogurt,whipped/sour cream,rolls/buns,oil	
-beef,tropical fruit,root vegetables,other vegetables,whole milk,yogurt,rolls/buns,bottled water	
-beef,tropical fruit,root vegetables,other vegetables,whole milk,yogurt,whipped/sour cream,rolls/buns,bottled water	
-citrus fruit,pip fruit,root vegetables,other vegetables,whole milk,butter,yogurt,whipped/sour cream	
-citrus fruit,pip fruit,root vegetables,other vegetables,whole milk,yogurt,whipped/sour cream,domestic eggs	
-citrus fruit,root vegetables,other vegetables,whole milk,butter,domestic eggs,rolls/buns,bottled water	
-citrus fruit,root vegetables,other vegetables,whole milk,yogurt,whipped/sour cream,domestic eggs,oil	
-citrus fruit,tropical fruit,pip fruit,other vegetables,whole milk,yogurt,whipped/sour cream,domestic eggs,bottled water	
-citrus fruit,tropical fruit,pip fruit,root vegetables,other vegetables,whole milk,whipped/sour cream,bottled water	
-citrus fruit,tropical fruit,pip fruit,root vegetables,other vegetables,whole milk,yogurt,rolls/buns	
-citrus fruit,tropical fruit,pip fruit,root vegetables,other vegetables,whole milk,yogurt,whipped/sour cream	
-citrus fruit,tropical fruit,pip fruit,root vegetables,other vegetables,whole milk,yogurt,whipped/sour cream,domestic eggs	
-citrus fruit,tropical fruit,root vegetables,other vegetables,whole milk,butter,yogurt,bottled water	
-citrus fruit,tropical fruit,root vegetables,other vegetables,whole milk,butter,yogurt,domestic eggs	
-citrus fruit,tropical fruit,root vegetables,other vegetables,whole milk,domestic eggs,oil,bottled water	
-citrus fruit,tropical fruit,root vegetables,other vegetables,whole milk,yogurt,whipped/sour cream,rolls/buns	
-citrus fruit,tropical fruit,root vegetables,other vegetables,whole milk,yogurt,whipped/sour cream,rolls/buns,oil	
-pip fruit,root vegetables,other vegetables,whole milk,butter,whipped/sour cream,rolls/buns,bottled water	
-tropical fruit,other vegetables,whole milk,butter,yogurt,whipped/sour cream,domestic eggs,bottled water	
-tropical fruit,pip fruit,root vegetables,other vegetables,whole milk,butter,yogurt,whipped/sour cream,domestic eggs	
-tropical fruit,pip fruit,root vegetables,other vegetables,whole milk,butter,yogurt,whipped/sour cream,domestic eggs,bottled water	
-tropical fruit,pip fruit,root vegetables,other vegetables,whole milk,yogurt,domestic eggs,rolls/buns,oil,bottled water	
-tropical fruit,pip fruit,root vegetables,other vegetables,whole milk,yogurt,rolls/buns,oil,bottled water	
-tropical fruit,root vegetables,other vegetables,whole milk,butter,yogurt,whipped/sour cream,domestic eggs,oil,bottled water	
-tropical fruit,root vegetables,other vegetables,whole milk,yogurt,domestic eggs,rolls/buns,bottled water	
-tropical fruit,root vegetables,whole milk,yogurt,whipped/sour cream,domestic eggs,rolls/buns,bottled water	
+153,146,145,2,53,137,75,103	
+153,67,146,145,2,75,122,150	
+153,67,146,145,53,122,150,103	
+153,67,146,145,53,75,110,150	
+37,153,67,146,145,53,110,122	
+37,153,67,146,2,137,110,150	
+37,153,67,146,2,137,150,103	
+37,153,67,146,9,2,150,103	
+67,146,2,137,75,110,150,103	
+67,146,53,75,110,122,150,103	
+73,153,67,146,145,75,110,122	
+73,153,67,146,9,2,53,137,75,134	
+73,37,153,67,146,145,9,2,53,137,150,103	
+73,37,153,67,146,2,53,150,103	
+73,37,153,67,146,2,53,75,150	
+73,37,67,146,145,137,75,103	
+73,67,146,145,9,53,110,150	
+73,67,146,9,2,53,137,134	
+73,80,146,145,9,2,53,110	
+73,80,146,9,2,75,122,150	
+73,80,153,67,146,145,2,122	
+73,80,153,67,146,145,2,137,75	
+73,80,153,67,146,2,134,150,103	
+73,80,153,67,146,2,53,110	
+73,80,153,67,146,2,53,110,134,103	
+73,80,153,67,146,9,137,75,134,122,103	
+73,80,153,67,146,9,2,134,103	
+73,80,153,67,2,53,110,150	
+73,80,37,153,146,145,9,2,150,103	
+73,80,37,153,67,146,2,110,150,103	
+73,80,37,153,67,146,2,53,75	
+73,80,37,153,67,146,9,2,53,137	
+73,80,37,153,67,146,9,53,122,103	
+73,80,37,67,146,9,2,53,75,122	
+73,80,67,146,145,2,53,150,103	
+73,80,67,146,145,9,2,110	
+73,80,67,146,2,110,122,150	
+73,80,67,146,2,75,134,103	
+8,153,146,145,9,2,137,110	
+8,153,67,145,9,2,137,150	
+8,153,67,146,145,110,150,103	
+8,153,67,146,145,9,53,110	
+8,153,67,146,75,110,150,103	
+8,153,67,146,9,75,150,103	
+8,37,146,2,53,137,122,150,103	
+8,37,153,146,145,2,53,137,122,103	
+8,37,153,67,146,9,2,137	
+8,37,67,146,145,9,2,122	
+8,67,146,145,2,134,122,150	
+8,67,146,145,9,2,53,137,75,110	
+8,67,146,2,53,75,150,103	
+8,73,153,145,2,53,134,103	
+8,73,153,67,146,2,137,134	
+8,73,153,67,146,2,75,150,103	
+8,73,37,153,67,146,145,122	
+8,73,80,153,67,146,145,9,2,53,137,75,110	
+8,73,80,153,67,146,145,9,2,75	
+8,73,80,153,67,146,53,137,110	
+8,73,80,153,67,146,75,110,150	
+8,73,80,153,67,146,9,53	
+8,73,80,153,67,9,53,137,75,134,150,103	
+8,73,80,37,153,67,146,110	
+8,73,80,37,153,67,146,110,150	
+8,73,80,67,146,2,53,103	
+8,80,146,145,2,110,122,103	
+8,80,153,67,146,145,2,110,134,103	
+8,80,153,67,146,145,2,53,110,134	
+8,80,153,67,146,2,110,122	
+8,80,153,67,146,2,53,110,122	
+8,80,37,153,146,145,2,53,137,75,110	
+8,80,37,153,67,146,145,53,110,134	
+8,80,37,153,67,146,2,53	
+8,80,37,153,67,146,75,150	
+8,80,37,67,146,2,110,103	
+8,80,37,67,146,2,53,110,150	
+8,80,67,145,9,2,53,103	
+8,80,67,146,145,9,2,75	
+80,153,146,2,137,110,122,150	
+80,153,146,2,53,75,110,122	
+80,153,67,145,2,75,122,150	
+80,153,67,146,145,2,53,75,134,122,103	
+80,153,67,146,2,75,110,122	
+80,153,67,9,2,137,75,122	
+80,153,67,9,2,53,137,122	
+80,37,153,67,146,145,2,53,75,122,103	
+80,37,153,67,146,145,9,2,53,137,75,103	
+80,37,153,67,146,2,110,134,122,103	
+80,37,153,67,146,2,75,110,134,122,150	
+80,37,153,67,146,9,2,122	
+80,37,67,145,9,2,53,110,103	
+80,37,67,146,145,53,75,150	
+80,37,67,146,9,2,53,137	
+80,37,67,2,53,110,122,150	
+80,67,146,145,2,137,75,110	
+80,67,146,145,2,53,122,103	
+80,67,146,145,9,2,53,75,122	
+80,67,146,9,2,53,137,110	
+80,67,2,75,110,134,122,150	

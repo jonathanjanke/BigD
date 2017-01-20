@@ -17,7 +17,7 @@ import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritable> {
 		
-        private final static IntWritable result = new IntWritable(1);
+        private final static IntWritable result = new IntWritable(-1);
         private Text word = new Text();
         private static int numberCombinations;
         String [][] basketCombinations;
@@ -43,7 +43,7 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritab
 							  }
 							  curr += element [element.length-1];
 							  word.set(curr);
-							  result.set(1);
+							  result.set(-1);
 						      context.write(word, result);			      
 						  }
 						  

@@ -45,8 +45,8 @@ public class Apriori_Main extends Configured implements Tool {
 	
 	public static int NUMBER_COMBINATIONS = 1;
 	public static final int TOTAL_NUMBER_COMBINATIONS = 10;
-	public static double RELATIVE_SUPPORT_THRESSHOLD = 0;
-	public static int SUPPORT_THRESHOLD = 10; //support threshold in absolute numbers
+	public static double RELATIVE_SUPPORT_THRESSHOLD = 0.001;
+	public static int SUPPORT_THRESHOLD = 0; //support threshold in absolute numbers
 	public static final double CONFIDENCE = 0.5; //confidence in relative numbers
 //	public static final double INTEREST = 0.8;
 	public static final Object EMPTY_SYMBOL = "{X}";
@@ -54,6 +54,7 @@ public class Apriori_Main extends Configured implements Tool {
 	//public static HashMap <String, Integer> itemsets;
 	public static HashSet <String> singleItemsets;
 	public static HashMap <String, Integer> hashMap;
+	public static HashSet<String> itemMap;
 
 	public static void main(String[] args) throws Exception {
 		if (RELATIVE_SUPPORT_THRESSHOLD>0) {
@@ -101,9 +102,7 @@ public class Apriori_Main extends Configured implements Tool {
 			  firstOutputPath = new Path("data/" + NUMBER_COMBINATIONS + "/2_frequent_itemsets");
 
 			  job.setMapperClass(FrequentItemset_Mapper.class);
-			  
-
-			  
+			  	  
 			  job.setReducerClass(FrequentItemset_Reducer.class);
 
 			  job.setOutputKeyClass(Text.class);
@@ -111,6 +110,10 @@ public class Apriori_Main extends Configured implements Tool {
 
 			  job.setInputFormatClass(TextInputFormat.class);
 			  job.setOutputFormatClass(TextOutputFormat.class);
+			  
+			  if (this.NUMBER_COMBINATIONS==2) {
+				  itemMap = (HashSet<String>)singleItemsets.clone();
+			  }
 			  
 			  if (this.NUMBER_COMBINATIONS!=1) {
 				  inputPath = new Path("data/" + (NUMBER_COMBINATIONS) + "/1_input");
@@ -130,7 +133,7 @@ public class Apriori_Main extends Configured implements Tool {
 			  } else {
 				  //itemsetList.add(itemsets);
 				  System.out.println(singleItemsets.toString());
-				  
+				  System.out.println(singleItemsets.size());
 				  /*
 				   * Job 2
 				   */
@@ -159,11 +162,12 @@ public class Apriori_Main extends Configured implements Tool {
 			  NUMBER_COMBINATIONS++;
 		  }
 		  
+		  Path tempOutput = new Path("data/tempFreq/combinedItemsets.txt");
 		  Path secondInputPath = new Path(args[1] + "/Frequent_Itemsets");
 		  Path outputPath = new Path(args[1] + "/Association_Rules");
 
 		  // File to write
-		  File output = new File(args[1] + "/Frequent_Itemsets/combinedItemsets.txt");
+		  File output = new File("data/tempFreq/combinedItemsets.txt");
 
 		  // Read the file as string
 		  String outputString = "";
@@ -176,6 +180,32 @@ public class Apriori_Main extends Configured implements Tool {
 		  // Write the file
 		  FileUtils.write(output, outputString);
 		  
+//		  /*
+//		   * Job 4: Changing numbers back to original names, maybe not necessary?
+//		   */
+//		  
+//		  Job job4 = new Job(conf, "Job 4");
+//		  job4.setJarByClass(Apriori_Main.class);
+//
+//		  job4.setMapperClass(NumberName_Mapper.class);
+//		  job4.setReducerClass(NumberName_Reducer.class);
+//
+//		  job4.setOutputKeyClass(Text.class);
+//		  job4.setOutputValueClass(Text.class);
+//
+//		  job4.setInputFormatClass(TextInputFormat.class);
+//		  job4.setOutputFormatClass(TextOutputFormat.class);
+//  	
+//		  outputPath.getFileSystem(new Configuration()).delete(outputPath, true);
+//		  
+//		  TextInputFormat.addInputPath(job4, tempOutput);
+//		  TextOutputFormat.setOutputPath(job4, secondInputPath);
+//		  
+//		  if (!job4.waitForCompletion(true)) {
+//			  System.out.println("Third Job Failed");
+//			  return 1;
+//		  }
+		  
 		  /*
 		   * Job 3
 		   */
@@ -184,6 +214,7 @@ public class Apriori_Main extends Configured implements Tool {
 		  job3.setJarByClass(Apriori_Main.class);
 
 		  job3.setMapperClass(AssociationConstruction_Mapper.class);
+		  job3.setCombinerClass(AssociationConstruction_Combiner.class);
 		  job3.setReducerClass(AssociationConstruction_Reducer.class);
 
 		  job3.setOutputKeyClass(Text.class);
@@ -194,7 +225,7 @@ public class Apriori_Main extends Configured implements Tool {
   	
 		  outputPath.getFileSystem(new Configuration()).delete(outputPath, true);
 		  
-		  TextInputFormat.addInputPath(job3, secondInputPath);
+		  TextInputFormat.addInputPath(job3, tempOutput);
 		  TextOutputFormat.setOutputPath(job3, outputPath);
 		  
 		  if (!job3.waitForCompletion(true)) {
