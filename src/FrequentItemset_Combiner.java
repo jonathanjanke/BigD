@@ -14,7 +14,7 @@ public class FrequentItemset_Combiner extends Reducer<Text,IntWritable,Text,IntW
         
         public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
             String reducedItem = key.toString();
-    		Apriori_Main.itemMap.add(reducedItem);
+
     		int sum = 0;
         	for (IntWritable val : values) {
         		sum ++;

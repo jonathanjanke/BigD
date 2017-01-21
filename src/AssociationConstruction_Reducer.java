@@ -25,35 +25,20 @@ public class AssociationConstruction_Reducer extends Reducer<Text,Text,Text,Text
         public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
                 HashMap<String, Integer> supports = new HashMap<String, Integer>();
                 int support = 1;
-                String keyString = key.toString();
-                //Object [] itemMapElements = new Object [0];
-                
-//                if (!keyString.equals("")) {
-//                	itemMapElements = Apriori_Main.itemMap.toArray();
-//                	String [] keys = keyString.split(",");
-//                	keyString = "";
-//                	for (int i = 0; i<keys.length-1; i++) {
-//                		keyString += (String)itemMapElements[Integer.parseInt(keys[i])] + ",";
-//                	}
-//                	keyString += (String)itemMapElements[Integer.parseInt(keys[keys.length-1])];
-//                }
-                
+                String keyString = key.toString();              
                 for (Text val : values) {
                 	String [] a = val.toString().split(":");
                 	
                 	if (a[0].equals(Apriori_Main.EMPTY_SYMBOL)) {
                 		support = Integer.parseInt(a[1]);
                 	} else {
-//                		if (!keyString.equals("")) {
-//                			a[0] = (String)itemMapElements[Integer.parseInt(a[0])];
-//                		}
                 		supports.put(a[0], Integer.parseInt(a[1]));
                 	}
                 	
                 }
                 
                 if (keyString.equals("")) {
-                	support = Apriori_Main.NUMBER_LINES;
+                	support = Apriori_Main.DYNAMIC_NUMBER_LINES;
                 }
                 
                 Iterator it = supports.entrySet().iterator();
@@ -63,7 +48,6 @@ public class AssociationConstruction_Reducer extends Reducer<Text,Text,Text,Text
                     double currentConfidence = currentSupport/support;
                     if  (currentConfidence > confidence) {
 	                    resultKey.set("{" + key.toString() + "} => " + (String)pair.getKey());
-	                    //resultValue.set("Confidence: " + currentConfidence + ", Support: " + currentSupport + ", Overall Support: " + support);
 	                    resultValue.set(currentConfidence + "");
 	                    
 	                    context.write(resultKey, resultValue);

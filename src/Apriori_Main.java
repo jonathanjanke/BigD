@@ -45,19 +45,18 @@ public class Apriori_Main extends Configured implements Tool {
 	
 	public static int NUMBER_COMBINATIONS = 1;
 	public static final int TOTAL_NUMBER_COMBINATIONS = 10;
-	public static double RELATIVE_SUPPORT_THRESSHOLD = 0;
-	public static int SUPPORT_THRESHOLD = 9; //support threshold in absolute numbers
+	public static double RELATIVE_SUPPORT_THRESSHOLD = 0.001;
+	public static int SUPPORT_THRESHOLD = 10; //support threshold in absolute numbers
 	public static final double CONFIDENCE = 0.5; //confidence in relative numbers
-	public static final Object EMPTY_SYMBOL = "{X}";
-	public static int NUMBER_LINES = 9835;
-	public static HashSet <String> singleItemsets;
-	public static HashSet <String> itemMap;
-
+	public static final String EMPTY_SYMBOL = "{X}";
+	public static boolean CALCULATE = true;
+	public static HashSet <Integer> singleItemsets;
+	public static HashMap <Integer, String> itemMap;
+	public static HashMap <String, Integer> inverseItemMap;
+	
+	public static int DYNAMIC_NUMBER_LINES = 0;
 	public static void main(String[] args) throws Exception {
-		if (RELATIVE_SUPPORT_THRESSHOLD>0) {
-			SUPPORT_THRESHOLD = (int)Math.ceil(NUMBER_LINES * RELATIVE_SUPPORT_THRESSHOLD);
-		}
-		
+		if (RELATIVE_SUPPORT_THRESSHOLD<= 0) CALCULATE = false;
 		if (args.length != 2) {
 			System.err.println("Enter valid number of arguments <Inputdirectory>  <Outputlocation>");
 			System.exit(0);
@@ -85,7 +84,7 @@ public class Apriori_Main extends Configured implements Tool {
 		  Path inputPath = new Path(args[0]);
 		  Path firstOutputPath;
 		  
-		  singleItemsets = new HashSet<String>();
+		  singleItemsets = new HashSet<Integer>();
 		  inputPath.getFileSystem(new Configuration()).delete(new Path("data/"), true);
 
 		  while ((NUMBER_COMBINATIONS<=TOTAL_NUMBER_COMBINATIONS && Apriori_Main.singleItemsets.size()>0) || NUMBER_COMBINATIONS==1) {
@@ -106,19 +105,16 @@ public class Apriori_Main extends Configured implements Tool {
 			  job.setInputFormatClass(TextInputFormat.class);
 			  job.setOutputFormatClass(TextOutputFormat.class);
 			  
-//			  if (this.NUMBER_COMBINATIONS==2) {
-//				  itemMap = (HashSet<String>)singleItemsets.clone();
-//			  }
-			  
 			  if (Apriori_Main.NUMBER_COMBINATIONS!=1) {
 				  inputPath = new Path("data/" + (NUMBER_COMBINATIONS) + "/1_input");
 			  } else {
 				  job.setCombinerClass(FrequentItemset_Combiner.class);
-				  itemMap = new HashSet<String>();
+				  itemMap = new HashMap<Integer, String>();
+				  inverseItemMap = new HashMap<String, Integer>();
 			  }
 			  
 			  //itemsets = new HashMap<String, Integer>();
-			  singleItemsets = new HashSet<String>();
+			  singleItemsets = new HashSet<Integer>();
 			  
 			  TextInputFormat.addInputPath(job, inputPath);
 			  TextOutputFormat.setOutputPath(job, firstOutputPath);
@@ -127,7 +123,6 @@ public class Apriori_Main extends Configured implements Tool {
 				  System.out.println("First Job Failed");
 				  return 1;
 			  } else {
-				  //itemsetList.add(itemsets);
 				  System.out.println(singleItemsets.toString());
 				  System.out.println(singleItemsets.size());
 				  /*
@@ -141,7 +136,7 @@ public class Apriori_Main extends Configured implements Tool {
 				  job2.setReducerClass(BasketCreator_Reducer.class);
 		
 				  job2.setOutputKeyClass(Text.class);
-				  job2.setOutputValueClass(Text.class);
+				  job2.setOutputValueClass(IntWritable.class);
 		
 				  job2.setInputFormatClass(TextInputFormat.class);
 				  job2.setOutputFormatClass(TextOutputFormat.class);
