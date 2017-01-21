@@ -27,10 +27,9 @@ public class AssociationConstruction_Combiner extends Reducer<Text,Text,Text,Tex
                 int support = 1;
                 String keyString = key.toString();
                 String valString;
-                Object [] itemMapElements = new Object [0];
+                Object [] itemMapElements = Apriori_Main.itemMap.toArray();
                 
-                if (!keyString.equals("")&&keyString.split(",")[0].matches("\\d+")) {
-                	itemMapElements = Apriori_Main.itemMap.toArray();
+                if (!keyString.equals("")) {
                 	String [] keys = keyString.split(",");
                 	keyString = "";
                 	for (int i = 0; i<keys.length; i++) {
@@ -49,11 +48,14 @@ public class AssociationConstruction_Combiner extends Reducer<Text,Text,Text,Tex
                     }
                 } else {
                 	for (Text val : values) {
+                		valString = val.toString();
+                    	String [] a = valString.split(":");
+                    	if (a[0].matches("\\d+")) a[0] = (String)itemMapElements[Integer.parseInt(a[0])];
+                    	valString = a[0] + ":" + a[1];
+                    	val.set(valString);
+                    	
                 		context.write(key, val);
                 	}
-                }
-                   
-                
+                }           
         }
-        
 }

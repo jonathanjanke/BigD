@@ -17,7 +17,7 @@ import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritable> {
 		
-        private final static IntWritable result = new IntWritable(-1);
+        private final static IntWritable result = new IntWritable(1);
         private Text word = new Text();
         private static int numberCombinations;
         String [][] basketCombinations;
@@ -29,35 +29,25 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritab
       	   	
       	   	String [] baskets  = file.split("\n");
    		 	
-				  for (String basket : baskets) {
-					  String [] elementsInBasket = basket.split(",");
-					  Arrays.sort(elementsInBasket);
-					  ArrayList <String> reducedElements = this.reduceElementsInBasket(elementsInBasket);
-					  if (elementsInBasket.length >=numberCombinations) {
-						  basketCombinations = combineToArray (reducedElements, numberCombinations);
-						  
-						  for (String [] element : basketCombinations) {
-							  String curr = "";
-							  for (int i=0; i<element.length-1; i++) {
-								  curr += element [i] + ",";
-							  }
-							  curr += element [element.length-1];
-							  word.set(curr);
-							  result.set(-1);
-						      context.write(word, result);			      
+			  for (String basket : baskets) {
+				  String [] elementsInBasket = basket.split(",");
+				  Arrays.sort(elementsInBasket);
+				  ArrayList <String> reducedElements = this.reduceElementsInBasket(elementsInBasket);
+				  if (elementsInBasket.length >=numberCombinations) {
+					  basketCombinations = combineToArray (reducedElements, numberCombinations);
+					  
+					  for (String [] element : basketCombinations) {
+						  String curr = "";
+						  for (int i=0; i<element.length; i++) {
+							  curr += element [i];
+							  if (i != element.length-1) curr += ",";
 						  }
-						  
-//						  if (numberCombinations==1) {
-//							  HashMap <String, Integer> hashMap = hashMapToArray (reducedElements, numberCombinations+1);
-//							  Set<String> keys = hashMap.keySet();
-//							  for (String currentKey: keys) {
-//								  word.set(currentKey);
-//								  result.set(hashMap.get(currentKey) + "");
-//								  context.write(word, result);
-//							  }
-//						  }
-					  }
+						  word.set(curr);
+						  result.set(1);
+					      context.write(word, result);			      
+					  }						  
 				  }
+			  }
         }
         
         private HashMap<String, Integer> hashMapToArray(ArrayList<String> elements, int combinationSize) {

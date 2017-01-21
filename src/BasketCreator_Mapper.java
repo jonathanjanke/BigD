@@ -19,50 +19,70 @@ public class BasketCreator_Mapper extends Mapper<Object, Text, Text, Text> {
         private final static Text one = new Text("1");
         private Text word = new Text();
         private HashSet <String> singleItemsets;
+        Object [] itemMap;
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
       	   	String file = value.toString();
       	   	singleItemsets = Apriori_Main.singleItemsets;
+      	   	itemMap = Apriori_Main.itemMap.toArray();
       	   	String [] baskets  = file.split("\n");
-   		 	
-      	   	if (singleItemsets.size()>0) {
+      	   	   		 	
 				  for (String basket : baskets) {
+					  
 					  basket = basket.split("\t")[0];
 					  String [] elementsInBasket = basket.split(",");
-					  ArrayList <String> reducedElements = this.reduceElementsInBasket(elementsInBasket);						  						 
-					  String curr = "";
-					  if (reducedElements.size()>0) {
-						  String replacedElement;
-						  for (int i=0; i<reducedElements.size()-1; i++) {
-							  if (Apriori_Main.NUMBER_COMBINATIONS==1) replacedElement = "" + replaceElement(reducedElements.get(i));
-							  else replacedElement = reducedElements.get(i);
-							  curr += replacedElement + ",";
+					  if (elementsInBasket.length>Apriori_Main.NUMBER_COMBINATIONS+1) {
+						  int [] elementIntegerInBasket = new int [elementsInBasket.length];
+						  
+
+						  if (Apriori_Main.NUMBER_COMBINATIONS==1) {
+							  for (int i=0; i<elementsInBasket.length; i++) {
+								  elementIntegerInBasket[i] = getIndex(itemMap, elementsInBasket[i]);
+							  }
+						  } else {
+							  for (int i=0; i<elementsInBasket.length; i++) {
+								  elementIntegerInBasket[i] = Integer.parseInt(elementsInBasket[i]);
+							  }
 						  }
-						  if (Apriori_Main.NUMBER_COMBINATIONS==1) replacedElement = "" + replaceElement(reducedElements.get(reducedElements.size()-1));
-						  else replacedElement = reducedElements.get(reducedElements.size()-1);
-						  curr += replacedElement;
-						  word.set(curr);
-						  context.write(word, one);				  
-					  }
+						  
+						  ArrayList <String> reducedElements = this.reduceElementsInBasket(elementIntegerInBasket);						  						 
+						
+						  String curr = "";
+						  if (reducedElements.size()>0) {
+							  String replacedElement;
+							  for (int i=0; i<reducedElements.size(); i++) {
+								  //if (Apriori_Main.NUMBER_COMBINATIONS==1) replacedElement = "" + replaceElement(reducedElements.get(i));
+								  //else 
+								  replacedElement = reducedElements.get(i);
+								  curr += replacedElement;
+								  if (i != reducedElements.size()-1) {
+									  curr += ",";
+								  }
+							  }
+							  word.set(curr);
+							  context.write(word, one);				  
+						  }
+		              }
 				  }
       	   	}
-        }
         
-        private int replaceElement(String string) {
-			int i = getIndex(this.singleItemsets, string);
-			return i;
-		}
+//        private int replaceElement(String string) {
+//			int i = getIndex(this.singleItemsets, string);
+//			return i;
+//		}
 
-		private ArrayList<String> reduceElementsInBasket (String [] elementsInBasket) {
+		private ArrayList<String> reduceElementsInBasket (int [] elementsInBasket) {
         	ArrayList<String> reducedElements = new ArrayList<String>();
-        	for (String element : elementsInBasket) {
-        		if (singleItemsets.contains(element)) reducedElements.add(element);
+        	for (int element : elementsInBasket) {
+        		if (singleItemsets.contains(element+"")) {
+        			reducedElements.add(element+"");
+        		}
         	}
         	return reducedElements;
         }
 		
-		public static int getIndex(Set<? extends String> set, String value) {
+		public static int getIndex(Object [] array, String value) {
 			   int result = 0;
-			   for (String entry:set) {
+			   for (Object entry:array) {
 			     if (entry.equals(value)) return result;
 			     result++;
 			   }
