@@ -16,12 +16,25 @@ public class FrequentItemset_Reducer extends Reducer<Text,IntWritable,Text,IntWr
         private HashMap <String, Integer> itemMap;
         
         public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+        	int sum = 0;
         	if (Apriori_Main.CALCULATE) {
     			Apriori_Main.SUPPORT_THRESHOLD = (int)Math.ceil(Apriori_Main.DYNAMIC_NUMBER_LINES * Apriori_Main.RELATIVE_SUPPORT_THRESSHOLD);
     			Apriori_Main.CALCULATE = false;
     		}
-    		support = Apriori_Main.SUPPORT_THRESHOLD;
-        	int sum = 0;
+        	support = Apriori_Main.SUPPORT_THRESHOLD;
+//        	if (Apriori_Main.NUMBER_COMBINATIONS == 1) {
+//        		int keyInt = Integer.parseInt(key.toString());
+//        		if (keyInt<0) {
+//        			for (IntWritable val : values) {
+//        				sum += val.get();
+//        			}
+//        			if (sum>= support) {
+//        				Apriori_Main.hashedItems.add(keyInt*(-1));
+//        			}
+//        			return;
+//        		}
+//        	}
+        		
             for (IntWritable val : values) {
             	sum += val.get();
             }

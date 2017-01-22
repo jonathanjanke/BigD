@@ -5,20 +5,23 @@ import java.util.HashMap;
 import org.apache.hadoop.io.IntWritable;  
 import org.apache.hadoop.io.Text;  
 import org.apache.hadoop.mapreduce.Mapper;
+import org.junit.experimental.theories.Theories;
+
+import com.sun.javafx.css.CalculatedValue;
 
 public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritable> {
 		
         private final static IntWritable result = new IntWritable(1);
         private Text word = new Text();
         private static int numberCombinations;
+        private static int bucketNumber = Apriori_Main.HASH_BUCKET_NUMBER;
         
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-      	   	String file = value.toString();
+      	   	String basket = value.toString();
       	   	numberCombinations = Apriori_Main.NUMBER_COMBINATIONS;
-      	   	
-      	   	String [] baskets  = file.split("\n");
-      	   	if (numberCombinations == 1) Apriori_Main.DYNAMIC_NUMBER_LINES += baskets.length;
-		    for (String basket : baskets) {
+      	   
+      	   	if (numberCombinations == 1) Apriori_Main.DYNAMIC_NUMBER_LINES ++;
+		    
 			  basket = basket.split("\t")[0];
 			  String [] elementStringsInBasket = basket.split(",");
 			  int [] elementsInBasket = new int [elementStringsInBasket.length];
@@ -34,7 +37,13 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritab
 					  }
 				  }
 //				  if (numberCombinations==1) {
-//					  HashMap<Integer, String> basketCombinations = hashValues(elementsInBasket, 2);
+////					  int [] basketCombinations = hashValues(elementsInBasket, 2, 50);
+//					  int [] hashValues = this.hashTwinValues(elementsInBasket);
+//					  for (int i=0; i<hashValues.length; i++) {
+//						  word.set(-i + "");
+//						  result.set(hashValues[i]);
+//						  context.write(word, result);
+//					  }
 //				  }
 			   } else {
 				  for (int i = 0; i<elementStringsInBasket.length; i++) {
@@ -52,44 +61,69 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritab
 					  if (i != element.length-1) curr += ",";
 				  }
 				  word.set(curr);
+				  result.set(1);
 			      context.write(word, result);			      
 			   }
 			}
+        
+        private int [] hashTwinValues (int [] elements) {
+        	int [] hashValues = new int [bucketNumber];
+        	for (int i=0; i<elements.length; i++) {
+        		for (int j=0; j<elements.length-1; j++) {
+        			hashValues [calculateTwinHash(elements[i], elements[j])]++;
+        		}
+        	}
+        	return hashValues;
         }
         
-        private HashMap<String, Integer> hashValues(ArrayList<String> elements, int combinationSize) {
-        	HashMap<String, Integer> temp = new HashMap <String, Integer>();
-        	int size = elements.size() - 1;
-
-        	for (int i=0; i<elements.size(); i++) {
-				//get ith element from elements and set it to array
-				String key = elements.get(i);
-				
-//				// call function on remaining elements;
-//				ArrayList<String> tempElements = new ArrayList <String>();
-//				for (int k = 0; k<elements.size(); k++) {
-//					tempElements.add(elements.get(k));
-//				}
-//				for (int j=0; j<=i; j++) {
-//					tempElements.remove(0);
-//				}
-//				
-//				int hashValue = hash (tempElements, combinationSize-1);
-				temp.put(key, size);
-			}
-    		
-    		if (combinationSize > 0) return temp;
-    		else return null;
-		}
-
-		private int hash(ArrayList<String> elements, int combinationSize) {
-			System.out.print(elements.size());
-			return elements.size();
-		}
+        private static int calculateTwinHash (int v1, int v2) {
+        	return (v1+v2)%bucketNumber;
+        }
+        
+//        private int [] hashValues(int [] elements, int combinationSize, int bucketNumber) {
+//        	int [] hashValues = hash(elements, combinationSize, bucketNumber);
+//        	    		
+//    		if (combinationSize > 0) return hashValues;
+//    		else return null;
+//		}
+//
+//        private static int [] hash (int [] elements, int combinationSize, int bucketSize) {
+//    		int [] hashCode = new int [bucketSize];
+//    		//recursion base
+//    		if (elements.length == 0||combinationSize == 0||elements.length<combinationSize) {
+//    			hashCode = 0;
+//    		}
+//    		//recursion step
+//    		else {
+//    			for (int i=0; i<=elements.length-combinationSize; i++) {
+//    				//get ith element from elements and set it to array
+//    				int s = elements[i];
+//    				
+//    				// call function on remaining elements;
+//    				int [] tempElements = new int [elements.length-i-1];
+//    				for (int k = 0; k<tempElements.length; k++) {
+//    					tempElements[k] = elements[k+i+1];
+//    				}
+//    				
+//    				ArrayList<int []> temp = hash (tempElements, combinationSize-1);
+//    				for (int [] t : temp) combinations.add(concat(s, t));
+//    			}
+//    		}
+//    		return combinations;
+//    	}
     	
     	private static int [][] combineToArray (int [] elements, int combinationSize) {
 
     		ArrayList<int[]> temp = combine(elements, combinationSize);
+//    		if (numberCombinations == 2) {
+//    			int [] combination;
+//				for (int j =0; j<temp.size(); j++) {
+//					combination = temp.get(j);
+//					if (!Apriori_Main.hashedItems.contains(calculateTwinHash(combination[0], combination[1]))) {
+//						temp.remove(j);
+//					}
+//				}
+//			}
     		int [][] combinations = new int [temp.size()][];
     		for (int i=0; i<temp.size(); i++) {
     			combinations [i] = temp.get(i);
@@ -113,14 +147,6 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritab
     			for (int i=0; i<=elements.length-combinationSize; i++) {
     				//get ith element from elements and set it to array
     				int [] s = {elements[i]};
-    				
-//    				if (numberCombinations == 2) {
-//    					if (Apriori_Main.hashMap.containsKey(elements.get(i).split(",")[0])) {
-//    						if (Apriori_Main.hashMap.get(elements.get(i)) < Apriori_Main.SUPPORT_THRESHOLD) {
-//    							break;
-//    						}
-//    					}
-//    				}
     				
     				// call function on remaining elements;
     				int [] tempElements = new int [elements.length-i-1];

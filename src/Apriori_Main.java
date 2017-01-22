@@ -43,18 +43,24 @@ public class Apriori_Main extends Configured implements Tool {
 	 * 
 	 */
 	
-	public static int NUMBER_COMBINATIONS = 1;
-	public static final int TOTAL_NUMBER_COMBINATIONS = 10;
+	public static final int TOTAL_NUMBER_COMBINATIONS = 15;
 	public static double RELATIVE_SUPPORT_THRESSHOLD = 0.001;
 	public static int SUPPORT_THRESHOLD = 10; //support threshold in absolute numbers
 	public static final double CONFIDENCE = 0.5; //confidence in relative numbers
+	
+	
 	public static final String EMPTY_SYMBOL = "{X}";
+	public static final int HASH_BUCKET_NUMBER = 100;
 	public static boolean CALCULATE = true;
+	
 	public static HashSet <Integer> singleItemsets;
 	public static HashMap <Integer, String> itemMap;
 	public static HashMap <String, Integer> inverseItemMap;
+	public static HashSet <Integer> hashedItems; 
 	
 	public static int DYNAMIC_NUMBER_LINES = 0;
+	public static int NUMBER_COMBINATIONS = 1;
+	
 	public static void main(String[] args) throws Exception {
 		if (RELATIVE_SUPPORT_THRESSHOLD<= 0) CALCULATE = false;
 		if (args.length != 2) {
@@ -88,7 +94,8 @@ public class Apriori_Main extends Configured implements Tool {
 		  inputPath.getFileSystem(new Configuration()).delete(new Path("data/"), true);
 
 		  while ((NUMBER_COMBINATIONS<=TOTAL_NUMBER_COMBINATIONS && Apriori_Main.singleItemsets.size()>0) || NUMBER_COMBINATIONS==1) {
-			  System.out.println("Combination: " + NUMBER_COMBINATIONS);	
+			  System.out.println("Combination: " + NUMBER_COMBINATIONS);
+			  hashedItems = new HashSet<Integer>();
 			  
 			  Job job = new Job(conf, "Job1");
 			  job.setJarByClass(Apriori_Main.class);
@@ -96,7 +103,7 @@ public class Apriori_Main extends Configured implements Tool {
 			  firstOutputPath = new Path("data/" + NUMBER_COMBINATIONS + "/2_frequent_itemsets");
 
 			  job.setMapperClass(FrequentItemset_Mapper.class);
-			  	  
+			  job.setCombinerClass(FrequentItemset_Combiner.class);	  
 			  job.setReducerClass(FrequentItemset_Reducer.class);
 
 			  job.setOutputKeyClass(Text.class);
@@ -108,7 +115,7 @@ public class Apriori_Main extends Configured implements Tool {
 			  if (Apriori_Main.NUMBER_COMBINATIONS!=1) {
 				  inputPath = new Path("data/" + (NUMBER_COMBINATIONS) + "/1_input");
 			  } else {
-				  job.setCombinerClass(FrequentItemset_Combiner.class);
+				  //job.setCombinerClass(FrequentItemset_Combiner.class);
 				  itemMap = new HashMap<Integer, String>();
 				  inverseItemMap = new HashMap<String, Integer>();
 			  }
@@ -123,8 +130,10 @@ public class Apriori_Main extends Configured implements Tool {
 				  System.out.println("First Job Failed");
 				  return 1;
 			  } else {
+				  if (Apriori_Main.singleItemsets.size()==0) break;
 				  System.out.println(singleItemsets.toString());
 				  System.out.println(singleItemsets.size());
+				  System.out.println(hashedItems.size());
 				  /*
 				   * Job 2
 				   */
