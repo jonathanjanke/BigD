@@ -8,14 +8,15 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
 public class BasketCreator_Reducer extends Reducer<Text,IntWritable,Text,IntWritable> {
-        private static IntWritable returnValue = new IntWritable();
+        private static IntWritable returnValue = new IntWritable(1);
         public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
-            for (IntWritable val : values) {
-            	if (key.toString().split(",").length>Apriori_Main.NUMBER_COMBINATIONS+1) {
-            		context.write(key, returnValue);
+            int count = 0;
+            if (key.toString().split(",").length>=Apriori_Main.NUMBER_COMBINATIONS+1) {
+            	for (IntWritable val : values) {
+            		count += val.get();
             	}
-            }
+            	returnValue.set(count);
+        		context.write(key, returnValue);
+        	}
         }
-        
-
 }

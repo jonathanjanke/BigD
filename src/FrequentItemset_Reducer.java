@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,6 +22,10 @@ public class FrequentItemset_Reducer extends Reducer<Text,IntWritable,Text,IntWr
     			Apriori_Main.SUPPORT_THRESHOLD = (int)Math.ceil(Apriori_Main.DYNAMIC_NUMBER_LINES * Apriori_Main.RELATIVE_SUPPORT_THRESSHOLD);
     			Apriori_Main.CALCULATE = false;
     		}
+        	if (Apriori_Main.CREATE_HASHSET) {
+        		Apriori_Main.frequentItems = new ArrayList<ArrayList<Integer>>();
+        		Apriori_Main.CREATE_HASHSET = false;
+        	}
         	support = Apriori_Main.SUPPORT_THRESHOLD;
 //        	if (Apriori_Main.NUMBER_COMBINATIONS == 1) {
 //        		int keyInt = Integer.parseInt(key.toString());
@@ -55,8 +60,15 @@ public class FrequentItemset_Reducer extends Reducer<Text,IntWritable,Text,IntWr
 //	            	}
 //	            	key.set(reducedItem);
 //            	}
-//            	else 
-            		for (String item : tempItems) Apriori_Main.singleItemsets.add(Integer.parseInt(item));
+//            	else
+            	ArrayList<Integer> items = new ArrayList<Integer>();
+            		for (int i =0; i<tempItems.length; i++) {
+            			int item = Integer.parseInt(tempItems[i]);
+            			Apriori_Main.singleItemsets.add(item);
+            			items.add(item);
+            		}
+            		int h = items.size();
+            		Apriori_Main.frequentItems.add(items);
             	        	
             	context.write(key, result);
             }

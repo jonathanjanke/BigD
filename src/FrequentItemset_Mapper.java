@@ -2,6 +2,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+
 import org.apache.hadoop.io.IntWritable;  
 import org.apache.hadoop.io.Text;  
 import org.apache.hadoop.mapreduce.Mapper;
@@ -17,12 +19,13 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritab
         private static int bucketNumber = Apriori_Main.HASH_BUCKET_NUMBER;
         
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-      	   	String basket = value.toString();
+      	   	String wholebasket = value.toString();
       	   	numberCombinations = Apriori_Main.NUMBER_COMBINATIONS;
       	   
       	   	if (numberCombinations == 1) Apriori_Main.DYNAMIC_NUMBER_LINES ++;
 		    
-			  basket = basket.split("\t")[0];
+			  String basket = wholebasket.split("\t")[0];
+			  int resultNumber = 1;
 			  String [] elementStringsInBasket = basket.split(",");
 			  int [] elementsInBasket = new int [elementStringsInBasket.length];
 			  if (numberCombinations ==1) {
@@ -46,14 +49,17 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritab
 //					  }
 //				  }
 			   } else {
+				  resultNumber = Integer.parseInt(wholebasket.split("\t")[1]);
 				  for (int i = 0; i<elementStringsInBasket.length; i++) {
 					  elementsInBasket[i] = Integer.parseInt(elementStringsInBasket[i]);
 				  }
 			   }
 			   Arrays.sort(elementsInBasket);
 			   //ArrayList <String> reducedElements = this.reduceElementsInBasket(elementsInBasket);
-			   int  [][] basketCombinations = combineToArray (elementsInBasket, numberCombinations);
+			   //int  [][] basketCombinations = combineToArray (elementsInBasket, numberCombinations);
 			  
+			   int [][] basketCombinations = combineToArray(elementsInBasket, numberCombinations);
+			   
 			   for (int [] element : basketCombinations) {
 				  String curr = "";
 				  for (int i=0; i<element.length; i++) {
@@ -61,7 +67,7 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritab
 					  if (i != element.length-1) curr += ",";
 				  }
 				  word.set(curr);
-				  result.set(1);
+				  result.set(resultNumber);
 			      context.write(word, result);			      
 			   }
 			}
@@ -79,51 +85,31 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritab
         private static int calculateTwinHash (int v1, int v2) {
         	return (v1+v2)%bucketNumber;
         }
-        
-//        private int [] hashValues(int [] elements, int combinationSize, int bucketNumber) {
-//        	int [] hashValues = hash(elements, combinationSize, bucketNumber);
-//        	    		
-//    		if (combinationSize > 0) return hashValues;
-//    		else return null;
-//		}
-//
-//        private static int [] hash (int [] elements, int combinationSize, int bucketSize) {
-//    		int [] hashCode = new int [bucketSize];
-//    		//recursion base
-//    		if (elements.length == 0||combinationSize == 0||elements.length<combinationSize) {
-//    			hashCode = 0;
-//    		}
-//    		//recursion step
-//    		else {
-//    			for (int i=0; i<=elements.length-combinationSize; i++) {
-//    				//get ith element from elements and set it to array
-//    				int s = elements[i];
-//    				
-//    				// call function on remaining elements;
-//    				int [] tempElements = new int [elements.length-i-1];
-//    				for (int k = 0; k<tempElements.length; k++) {
-//    					tempElements[k] = elements[k+i+1];
-//    				}
-//    				
-//    				ArrayList<int []> temp = hash (tempElements, combinationSize-1);
-//    				for (int [] t : temp) combinations.add(concat(s, t));
-//    			}
-//    		}
-//    		return combinations;
-//    	}
+       
     	
     	private static int [][] combineToArray (int [] elements, int combinationSize) {
 
     		ArrayList<int[]> temp = combine(elements, combinationSize);
-//    		if (numberCombinations == 2) {
-//    			int [] combination;
-//				for (int j =0; j<temp.size(); j++) {
-//					combination = temp.get(j);
-//					if (!Apriori_Main.hashedItems.contains(calculateTwinHash(combination[0], combination[1]))) {
-//						temp.remove(j);
-//					}
-//				}
-//			}
+    		if (numberCombinations > 2 && Apriori_Main.CREATE_ITEMSET) {
+				int [] combination;
+				int j = 0;
+//				System.out.print(temp.size() + " - ");
+				while (j<temp.size()) {
+					combination = temp.get(j);
+					ArrayList<Integer> tempo = new ArrayList<Integer>();
+					for (int comb : combination) {
+						tempo.add(comb);
+					}
+
+					if (!Apriori_Main.frequentSets.contains(tempo)) {
+						temp.remove(j);
+					} else {
+						j++;
+					}
+
+				}
+//				System.out.println(temp.size());
+			}
     		int [][] combinations = new int [temp.size()][];
     		for (int i=0; i<temp.size(); i++) {
     			combinations [i] = temp.get(i);
@@ -133,7 +119,8 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritab
     		else return null;
     	}
     	
-    	private static ArrayList<int[]> combine (int [] elements, int combinationSize) {
+    	
+		private static ArrayList<int[]> combine (int [] elements, int combinationSize) {
     		ArrayList<int []> combinations = new ArrayList<int []>();
     		//recursion base
     		if ((elements.length == 1)||combinationSize == 1||elements.length<combinationSize) {
@@ -173,6 +160,5 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritab
      	   System.arraycopy(b, 0, c, aLen, bLen);
      	   return c;
      	}
-    	
     	
 }

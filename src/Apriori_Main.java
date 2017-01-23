@@ -18,6 +18,7 @@ import org.apache.hadoop.util.GenericOptionsParser;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+import java.awt.event.ItemListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -44,22 +45,27 @@ public class Apriori_Main extends Configured implements Tool {
 	 */
 	
 	public static final int TOTAL_NUMBER_COMBINATIONS = 15;
-	public static double RELATIVE_SUPPORT_THRESSHOLD = 0.001;
-	public static int SUPPORT_THRESHOLD = 10; //support threshold in absolute numbers
+	public static double RELATIVE_SUPPORT_THRESSHOLD = 0;
+	public static int SUPPORT_THRESHOLD = 100; //support threshold in absolute numbers
 	public static final double CONFIDENCE = 0.5; //confidence in relative numbers
 	
 	
 	public static final String EMPTY_SYMBOL = "{X}";
 	public static final int HASH_BUCKET_NUMBER = 100;
-	public static boolean CALCULATE = true;
+	
 	
 	public static HashSet <Integer> singleItemsets;
 	public static HashMap <Integer, String> itemMap;
 	public static HashMap <String, Integer> inverseItemMap;
-	public static HashSet <Integer> hashedItems; 
+	public static HashSet <Integer> hashedItems;
+	public static ArrayList <ArrayList<Integer>> frequentItems;
+	public static ArrayList <ArrayList<Integer>> frequentSets;
 	
 	public static int DYNAMIC_NUMBER_LINES = 0;
 	public static int NUMBER_COMBINATIONS = 1;
+	public static boolean CREATE_HASHSET = false;
+	public static boolean CREATE_ITEMSET = true;
+	public static boolean CALCULATE = true;
 	
 	public static void main(String[] args) throws Exception {
 		if (RELATIVE_SUPPORT_THRESSHOLD<= 0) CALCULATE = false;
@@ -70,9 +76,9 @@ public class Apriori_Main extends Configured implements Tool {
 		double startTime = System.currentTimeMillis();
 	    if (ToolRunner.run(new Configuration(), new Apriori_Main(), args)==0) {
 	    	double endTime = System.currentTimeMillis();
-			double executionTime = (endTime - startTime) / 60000;
-			System.out.println("Run succesful");
-			System.out.println("Runtime: " + executionTime);
+			double executionTime = (endTime - startTime) / 1000;
+			System.out.println("Run succesful - Association Rules created.");
+			System.out.println("Runtime: " + executionTime + " seconds");
 	    } else {
 		    System.out.println("Run not succesful");
 	    }
@@ -91,29 +97,32 @@ public class Apriori_Main extends Configured implements Tool {
 		  Path firstOutputPath;
 		  
 		  singleItemsets = new HashSet<Integer>();
+		  frequentItems = new ArrayList<ArrayList<Integer>>(1);
 		  inputPath.getFileSystem(new Configuration()).delete(new Path("data/"), true);
 
-		  while ((NUMBER_COMBINATIONS<=TOTAL_NUMBER_COMBINATIONS && Apriori_Main.singleItemsets.size()>0) || NUMBER_COMBINATIONS==1) {
-			  System.out.println("Combination: " + NUMBER_COMBINATIONS);
+		  while ((NUMBER_COMBINATIONS<=TOTAL_NUMBER_COMBINATIONS && Apriori_Main.singleItemsets.size()>0 && Apriori_Main.frequentItems.size()>0) || NUMBER_COMBINATIONS==1) {
 			  hashedItems = new HashSet<Integer>();
 			  
-			  Job job = new Job(conf, "Job1");
-			  job.setJarByClass(Apriori_Main.class);
+			  Job frequentItemsetJob = new Job(conf, "Job1");
+			  frequentItemsetJob.setJarByClass(Apriori_Main.class);
 
 			  firstOutputPath = new Path("data/" + NUMBER_COMBINATIONS + "/2_frequent_itemsets");
 
-			  job.setMapperClass(FrequentItemset_Mapper.class);
-			  job.setCombinerClass(FrequentItemset_Combiner.class);	  
-			  job.setReducerClass(FrequentItemset_Reducer.class);
+			  frequentItemsetJob.setMapperClass(FrequentItemset_Mapper.class);
+			  frequentItemsetJob.setCombinerClass(FrequentItemset_Combiner.class);	  
+			  frequentItemsetJob.setReducerClass(FrequentItemset_Reducer.class);
 
-			  job.setOutputKeyClass(Text.class);
-			  job.setOutputValueClass(IntWritable.class);
+			  frequentItemsetJob.setOutputKeyClass(Text.class);
+			  frequentItemsetJob.setOutputValueClass(IntWritable.class);
 
-			  job.setInputFormatClass(TextInputFormat.class);
-			  job.setOutputFormatClass(TextOutputFormat.class);
+			  frequentItemsetJob.setInputFormatClass(TextInputFormat.class);
+			  frequentItemsetJob.setOutputFormatClass(TextOutputFormat.class);
 			  
 			  if (Apriori_Main.NUMBER_COMBINATIONS!=1) {
-				  inputPath = new Path("data/" + (NUMBER_COMBINATIONS) + "/1_input");
+				  //if (Apriori_Main.NUMBER_COMBINATIONS == 2) {
+					  inputPath = new Path("data/" + (NUMBER_COMBINATIONS) + "/1_input");
+				  //}
+				  Apriori_Main.CREATE_HASHSET = true;
 			  } else {
 				  //job.setCombinerClass(FrequentItemset_Combiner.class);
 				  itemMap = new HashMap<Integer, String>();
@@ -123,42 +132,47 @@ public class Apriori_Main extends Configured implements Tool {
 			  //itemsets = new HashMap<String, Integer>();
 			  singleItemsets = new HashSet<Integer>();
 			  
-			  TextInputFormat.addInputPath(job, inputPath);
-			  TextOutputFormat.setOutputPath(job, firstOutputPath);
+			  TextInputFormat.addInputPath(frequentItemsetJob, inputPath);
+			  TextOutputFormat.setOutputPath(frequentItemsetJob, firstOutputPath);
 			  
-			  if (!job.waitForCompletion(true)) {
+			  if (!frequentItemsetJob.waitForCompletion(true)) {
 				  System.out.println("First Job Failed");
 				  return 1;
 			  } else {
-				  if (Apriori_Main.singleItemsets.size()==0) break;
-				  System.out.println(singleItemsets.toString());
-				  System.out.println(singleItemsets.size());
-				  System.out.println(hashedItems.size());
+				  if (Apriori_Main.singleItemsets.size()==0) {
+					  System.out.println("All frequent itemsets successfully created.");
+					  break;
+				  };
+				  if (CREATE_ITEMSET) Apriori_Main.frequentSets = createSets();
+				  
+//				  System.out.println(singleItemsets.toString());
+//				  System.out.println(singleItemsets.size());
 				  /*
 				   * Job 2
 				   */
 				  
-				  Job job2 = new Job(conf, "Job 2");
-				  job2.setJarByClass(Apriori_Main.class);
+				  Job inputBasketCreatorJob = new Job(conf, "Job 2");
+				  inputBasketCreatorJob.setJarByClass(Apriori_Main.class);
 		
-				  job2.setMapperClass(BasketCreator_Mapper.class);
-				  job2.setReducerClass(BasketCreator_Reducer.class);
+				  inputBasketCreatorJob.setMapperClass(BasketCreator_Mapper.class);
+				  inputBasketCreatorJob.setReducerClass(BasketCreator_Reducer.class);
 		
-				  job2.setOutputKeyClass(Text.class);
-				  job2.setOutputValueClass(IntWritable.class);
+				  inputBasketCreatorJob.setOutputKeyClass(Text.class);
+				  inputBasketCreatorJob.setOutputValueClass(IntWritable.class);
 		
-				  job2.setInputFormatClass(TextInputFormat.class);
-				  job2.setOutputFormatClass(TextOutputFormat.class);
+				  inputBasketCreatorJob.setInputFormatClass(TextInputFormat.class);
+				  inputBasketCreatorJob.setOutputFormatClass(TextOutputFormat.class);
 				  Path itemsetOutputPath = new Path("data/" + (NUMBER_COMBINATIONS+1) + "/1_input");
 				  
-				  TextInputFormat.addInputPath(job2, inputPath);
-				  TextOutputFormat.setOutputPath(job2, itemsetOutputPath);
+				  TextInputFormat.addInputPath(inputBasketCreatorJob, inputPath);
+				  TextOutputFormat.setOutputPath(inputBasketCreatorJob, itemsetOutputPath);
 				  
-				  if (!job2.waitForCompletion(true)) {
+				  if (!inputBasketCreatorJob.waitForCompletion(true)) {
 					  System.out.println("Second Job Failed");
 					  return 1;
 				  } else {
-					  NUMBER_COMBINATIONS++;
+					  System.out.println("Frequent " + NUMBER_COMBINATIONS + "-Itemsets successfully created.");
+					  NUMBER_COMBINATIONS++;			  
 				  }
 			  }
 		  }
@@ -181,60 +195,186 @@ public class Apriori_Main extends Configured implements Tool {
 		  // Write the file
 		  FileUtils.write(output, outputString);
 		  
-//		  /*
-//		   * Job 4: Changing numbers back to original names, maybe not necessary?
-//		   */
-//		  
-//		  Job job4 = new Job(conf, "Job 4");
-//		  job4.setJarByClass(Apriori_Main.class);
-//
-//		  job4.setMapperClass(NumberName_Mapper.class);
-//		  job4.setReducerClass(NumberName_Reducer.class);
-//
-//		  job4.setOutputKeyClass(Text.class);
-//		  job4.setOutputValueClass(Text.class);
-//
-//		  job4.setInputFormatClass(TextInputFormat.class);
-//		  job4.setOutputFormatClass(TextOutputFormat.class);
-//  	
-//		  outputPath.getFileSystem(new Configuration()).delete(outputPath, true);
-//		  
-//		  TextInputFormat.addInputPath(job4, tempOutput);
-//		  TextOutputFormat.setOutputPath(job4, secondInputPath);
-//		  
-//		  if (!job4.waitForCompletion(true)) {
-//			  System.out.println("Third Job Failed");
-//			  return 1;
-//		  }
-		  
 		  /*
 		   * Job 3
 		   */
 		  
-		  Job job3 = new Job(conf, "Job 3");
-		  job3.setJarByClass(Apriori_Main.class);
+		  Job associationRuleConstructionJob = new Job(conf, "Job 3");
+		  associationRuleConstructionJob.setJarByClass(Apriori_Main.class);
 
-		  job3.setMapperClass(AssociationConstruction_Mapper.class);
-		  job3.setCombinerClass(AssociationConstruction_Combiner.class);
-		  job3.setReducerClass(AssociationConstruction_Reducer.class);
+		  associationRuleConstructionJob.setMapperClass(AssociationConstruction_Mapper.class);
+		  associationRuleConstructionJob.setCombinerClass(AssociationConstruction_Combiner.class);
+		  associationRuleConstructionJob.setReducerClass(AssociationConstruction_Reducer.class);
 
-		  job3.setOutputKeyClass(Text.class);
-		  job3.setOutputValueClass(Text.class);
+		  associationRuleConstructionJob.setOutputKeyClass(Text.class);
+		  associationRuleConstructionJob.setOutputValueClass(Text.class);
 
-		  job3.setInputFormatClass(TextInputFormat.class);
-		  job3.setOutputFormatClass(TextOutputFormat.class);
+		  associationRuleConstructionJob.setInputFormatClass(TextInputFormat.class);
+		  associationRuleConstructionJob.setOutputFormatClass(TextOutputFormat.class);
   	
 		  outputPath.getFileSystem(new Configuration()).delete(outputPath, true);
 		  
-		  TextInputFormat.addInputPath(job3, tempOutput);
-		  TextOutputFormat.setOutputPath(job3, outputPath);
+		  TextInputFormat.addInputPath(associationRuleConstructionJob, tempOutput);
+		  TextOutputFormat.setOutputPath(associationRuleConstructionJob, outputPath);
 		  
-		  if (!job3.waitForCompletion(true)) {
+		  if (!associationRuleConstructionJob.waitForCompletion(true)) {
 			  System.out.println("Third Job Failed");
 			  return 1;
 		  }
 		  
 		  return 0;
 	}
+
+	private ArrayList<ArrayList<Integer>> createSets() {
+		ArrayList<ArrayList<Integer>> itemsets = Apriori_Main.frequentItems;
+		int currentSizeOfItemsets = itemsets.get(0).size();
+    		
+    	HashMap<String, int[]> itemsetCandidates = new HashMap<String, int[]>();
+    	
+        // compare each pair (n-2)-combinations
+        for(int i=0; i<itemsets.size(); i++) {
+            for(int j=i+1; j<itemsets.size(); j++) {
+                ArrayList<Integer> firstCombination = itemsets.get(i);
+                ArrayList<Integer> secondCombination = itemsets.get(j);
+
+                //string of the first n-2 tokens from both combinations
+                int [] newCandandidate = new int[currentSizeOfItemsets+1];
+                for(int k=0; k<newCandandidate.length-1; k++) {
+                	newCandandidate[k] = firstCombination.get(k);
+                }
+                    
+                int numberDifferent = 0;
+                // find missing value
+                for(int m=0; m<secondCombination.size(); m++) {
+                	boolean found = false;
+                	// is secondCombination[m] in firstCombination?
+                    for(int n=0; n<firstCombination.size(); n++) {
+                    	if (firstCombination.get(n)==secondCombination.get(m)) { 
+                    		found = true;
+                    		break;
+                    	}
+                	}
+                	if (!found){ // secondCombination[m] is not in firstCombination
+                		numberDifferent++;
+                		if (numberDifferent>1) break;
+                		// missing value at the end of newCandidate
+                		newCandandidate[newCandandidate.length -1] = secondCombination.get(m);
+                	}
+            	
+            	}
+                          
+                if (numberDifferent==1) {
+                	// Arrays.toString to reuse equals and hashcode of String
+                	Arrays.sort(newCandandidate);
+                	itemsetCandidates.put(Arrays.toString(newCandandidate),newCandandidate);
+                }
+            }
+        }
+        
+        //set the new itemsets
+        itemsets = new ArrayList<ArrayList<Integer>>();
+        ArrayList<ArrayList<Integer>> combinations;
+        for (int [] element : itemsetCandidates.values()) {
+        	combinations = combinations(element, element.length-1);
+        	if (Apriori_Main.frequentItems.containsAll(combinations)) {
+        		ArrayList<Integer> itemlist = new ArrayList<Integer>();
+            	for (int el : element) {
+            		itemlist.add(el);
+            	}
+            	itemsets.add(itemlist);
+        	}
+        }
+        System.out.println(itemsets.toString());
+        return itemsets;
+	}
+	
+	public static ArrayList<ArrayList<Integer>> combinations (int[] set, int k) {
+		int [][] tempCombinations = combineToArray (set, k);
+		ArrayList<ArrayList<Integer>> finalCombinations = new ArrayList<ArrayList<Integer>>();
+		for (int [] temp1 : tempCombinations) {
+			ArrayList<Integer> tempList = new ArrayList<Integer>();
+			for (int temp2 : temp1) {
+				tempList.add(temp2);
+			}
+			finalCombinations.add(tempList);
+		}
+		return finalCombinations;
+	}
+	
+	private static int[][] combineToArray (int [] elements, int combinationSize) {
+
+		ArrayList<int[]> temp = combine(elements, combinationSize);
+		if (NUMBER_COMBINATIONS > 2 && Apriori_Main.CREATE_ITEMSET) {
+			int [] combination;
+			int j = 0;
+//			System.out.print(temp.size() + " - ");
+			while (j<temp.size()) {
+				combination = temp.get(j);
+				ArrayList<Integer> tempo = new ArrayList<Integer>();
+				for (int comb : combination) {
+					tempo.add(comb);
+				}
+
+				if (!Apriori_Main.frequentSets.contains(tempo)) {
+					temp.remove(j);
+				} else {
+					j++;
+				}
+
+			}
+//			System.out.println(temp.size());
+		}
+		int [][] combinations = new int [temp.size()][];
+		for (int i=0; i<temp.size(); i++) {
+			combinations [i] = temp.get(i);
+		}
+		
+		if (combinationSize > 0) return combinations;
+		else return null;
+	}
+	
+	
+	private static ArrayList<int[]> combine (int [] elements, int combinationSize) {
+		ArrayList<int []> combinations = new ArrayList<int []>();
+		//recursion base
+		if ((elements.length == 1)||combinationSize == 1||elements.length<combinationSize) {
+			for (int el : elements) {
+				int [] s = {el};
+				combinations.add(s);
+			}
+		}
+		//recursion step
+		else {
+			for (int i=0; i<=elements.length-combinationSize; i++) {
+				//get ith element from elements and set it to array
+				int [] s = {elements[i]};
+				
+				// call function on remaining elements;
+				int [] tempElements = new int [elements.length-i-1];
+				for (int k = 0; k<tempElements.length; k++) {
+					tempElements[k] = elements[k+i+1];
+				}
+				
+				ArrayList<int []> temp = combine (tempElements, combinationSize-1);
+				for (int [] t : temp) combinations.add(concat(s, t));
+			}
+		}
+		return combinations;
+	}
+	
+
+	
+	//from the internet: http://stackoverflow.com/questions/80476/how-can-i-concatenate-two-arrays-in-java
+	
+	public static int[] concat(int[] a, int[] b) {
+ 	   int aLen = a.length;
+ 	   int bLen = b.length;
+ 	   int[] c= new int[aLen+bLen];
+ 	   System.arraycopy(a, 0, c, 0, aLen);
+ 	   System.arraycopy(b, 0, c, aLen, bLen);
+ 	   return c;
+ 	}
+	
+	
 }
 

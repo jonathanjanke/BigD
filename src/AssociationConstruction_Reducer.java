@@ -46,7 +46,7 @@ public class AssociationConstruction_Reducer extends Reducer<Text,Text,Text,Text
                     Map.Entry pair = (Map.Entry)it.next();
                     double currentSupport = (int)pair.getValue();
                     double currentConfidence = currentSupport/support;
-                    if  (currentConfidence > confidence) {
+                    if  (currentConfidence >= confidence) {
 	                    resultKey.set("{" + key.toString() + "} => " + (String)pair.getKey());
 	                    resultValue.set(currentConfidence + "");
 	                    
