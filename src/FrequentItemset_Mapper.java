@@ -1,15 +1,10 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
 
 import org.apache.hadoop.io.IntWritable;  
 import org.apache.hadoop.io.Text;  
 import org.apache.hadoop.mapreduce.Mapper;
-import org.junit.experimental.theories.Theories;
-
-import com.sun.javafx.css.CalculatedValue;
 
 public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritable> {
 		

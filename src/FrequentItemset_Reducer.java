@@ -1,12 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
-import org.apache.hadoop.io.ArrayWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -48,26 +43,13 @@ public class FrequentItemset_Reducer extends Reducer<Text,IntWritable,Text,IntWr
             	result.set(sum);
             	String [] tempItems = key.toString().split(",");
             	itemMap = Apriori_Main.inverseItemMap;
-            	String reducedItem = "";
-//            	if (Apriori_Main.NUMBER_COMBINATIONS == 1) {
-//	            	for (int i= 0; i<tempItems.length; i++) {
-//	            		int reduce = itemMap.get(tempItems[i]);
-//	           			reducedItem += reduce;
-//	            		Apriori_Main.singleItemsets.add(reduce);
-//	         			if (i != tempItems.length-1) {
-//            				reducedItem+= ",";
-//            			}
-//	            	}
-//	            	key.set(reducedItem);
-//            	}
-//            	else
+
             	ArrayList<Integer> items = new ArrayList<Integer>();
             		for (int i =0; i<tempItems.length; i++) {
             			int item = Integer.parseInt(tempItems[i]);
             			Apriori_Main.singleItemsets.add(item);
             			items.add(item);
             		}
-            		int h = items.size();
             		Apriori_Main.frequentItems.add(items);
             	        	
             	context.write(key, result);

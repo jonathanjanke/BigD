@@ -1,14 +1,7 @@
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.StringTokenizer;
 
-import org.apache.hadoop.io.ArrayWritable;
-import org.apache.hadoop.io.IntWritable;  
 import org.apache.hadoop.io.Text;  
 import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.v2.hs.webapp.HsAboutPage;
 
 public class AssociationConstruction_Mapper extends Mapper<Object, Text, Text, Text> {
 		

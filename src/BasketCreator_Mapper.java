@@ -3,19 +3,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.Set;
-import java.util.StringTokenizer;
 
-import org.apache.hadoop.io.ArrayWritable;
 import org.apache.hadoop.io.IntWritable;  
 import org.apache.hadoop.io.Text;  
 import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.v2.hs.webapp.HsAboutPage;
-
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 public class BasketCreator_Mapper extends Mapper<Object, Text, Text, IntWritable> {
 		

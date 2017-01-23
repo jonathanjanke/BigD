@@ -1,39 +1,22 @@
 import org.apache.commons.io.FileUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
-import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.*;
-import org.apache.hadoop.mapred.JobConf;
-import org.apache.hadoop.mapred.Mapper;
-import org.apache.hadoop.mapred.Reducer;
+
 
 import org.apache.hadoop.mapreduce.Job;  
-import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
-import org.apache.hadoop.mapreduce.lib.jobcontrol.JobControl;
-import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
-import org.apache.hadoop.util.GenericOptionsParser;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import java.awt.event.ItemListener;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.*;
-
-import org.apache.hadoop.mapreduce.lib.chain.ChainMapper;
-import org.apache.hadoop.mapreduce.lib.chain.ChainReducer;
 
 public class Apriori_Main extends Configured implements Tool {
 	
@@ -46,9 +29,8 @@ public class Apriori_Main extends Configured implements Tool {
 	
 	public static final int TOTAL_NUMBER_COMBINATIONS = 15;
 	public static double RELATIVE_SUPPORT_THRESSHOLD = 0;
-	public static int SUPPORT_THRESHOLD = 100; //support threshold in absolute numbers
+	public static int SUPPORT_THRESHOLD = 10; //support threshold in absolute numbers
 	public static final double CONFIDENCE = 0.5; //confidence in relative numbers
-	
 	
 	public static final String EMPTY_SYMBOL = "{X}";
 	public static final int HASH_BUCKET_NUMBER = 100;
@@ -64,7 +46,7 @@ public class Apriori_Main extends Configured implements Tool {
 	public static int DYNAMIC_NUMBER_LINES = 0;
 	public static int NUMBER_COMBINATIONS = 1;
 	public static boolean CREATE_HASHSET = false;
-	public static boolean CREATE_ITEMSET = true;
+	public static boolean CREATE_ITEMSET = false;
 	public static boolean CALCULATE = true;
 	
 	public static void main(String[] args) throws Exception {
@@ -91,7 +73,6 @@ public class Apriori_Main extends Configured implements Tool {
 		   * Job 1
 		   */
 		  Configuration conf = getConf();
-		  FileSystem fs = FileSystem.get(conf);
 	  
 		  Path inputPath = new Path(args[0]);
 		  Path firstOutputPath;
@@ -178,7 +159,6 @@ public class Apriori_Main extends Configured implements Tool {
 		  }
 		  
 		  Path tempOutput = new Path("data/tempFreq/combinedItemsets.txt");
-		  Path secondInputPath = new Path(args[1] + "/Frequent_Itemsets");
 		  Path outputPath = new Path(args[1] + "/Association_Rules");
 
 		  // File to write
@@ -284,7 +264,6 @@ public class Apriori_Main extends Configured implements Tool {
             	itemsets.add(itemlist);
         	}
         }
-        System.out.println(itemsets.toString());
         return itemsets;
 	}
 	
