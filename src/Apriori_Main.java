@@ -126,8 +126,6 @@ public class Apriori_Main extends Configured implements Tool {
 				  };
 				  if (CREATE_ITEMSET) Apriori_Main.frequentSets = createSets();
 				  
-//				  System.out.println(singleItemsets.toString());
-//				  System.out.println(singleItemsets.size());
 				  /*
 				   * Job 2
 				   */
@@ -286,7 +284,6 @@ public class Apriori_Main extends Configured implements Tool {
 		if (NUMBER_COMBINATIONS > 2 && Apriori_Main.CREATE_ITEMSET) {
 			int [] combination;
 			int j = 0;
-//			System.out.print(temp.size() + " - ");
 			while (j<temp.size()) {
 				combination = temp.get(j);
 				ArrayList<Integer> tempo = new ArrayList<Integer>();
@@ -301,7 +298,6 @@ public class Apriori_Main extends Configured implements Tool {
 				}
 
 			}
-//			System.out.println(temp.size());
 		}
 		int [][] combinations = new int [temp.size()][];
 		for (int i=0; i<temp.size(); i++) {

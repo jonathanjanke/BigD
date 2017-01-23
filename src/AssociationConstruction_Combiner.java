@@ -6,10 +6,9 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 /***
  * 
- * @author Jonathan
+ * @author Jonathan, Rene, Marnik
  *
- *	currently not working because of attempt to convert numbers back to Strings - problem to be solved...
- *
+
  */
 
 public class AssociationConstruction_Combiner extends Reducer<Text,Text,Text,Text> {

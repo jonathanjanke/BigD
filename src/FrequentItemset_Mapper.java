@@ -88,7 +88,6 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritab
     		if (numberCombinations > 2 && Apriori_Main.CREATE_ITEMSET) {
 				int [] combination;
 				int j = 0;
-//				System.out.print(temp.size() + " - ");
 				while (j<temp.size()) {
 					combination = temp.get(j);
 					ArrayList<Integer> tempo = new ArrayList<Integer>();
@@ -103,7 +102,6 @@ public class FrequentItemset_Mapper extends Mapper<Object, Text, Text, IntWritab
 					}
 
 				}
-//				System.out.println(temp.size());
 			}
     		int [][] combinations = new int [temp.size()][];
     		for (int i=0; i<temp.size(); i++) {
